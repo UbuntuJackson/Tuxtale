@@ -1,0 +1,31 @@
+{
+    "000": {
+        "text": "Which response would you like?",
+        "moretext": "Ho!",
+        "type": "option",
+        "response": [
+            {
+                "text": "response 1",
+                "next": "001"
+            },
+            {
+                "text": "response 2",
+                "next": "002"
+            },
+            {
+                "text": "response 3",
+                "next": "003"
+            }
+        ]
+    },
+    "001": {
+        "text": "Wow, you actually chose 001. Great!",
+        "type": "non option",
+        "next": "001"
+    },
+    "002": {
+        "text": "Ah, you chose 002. I am VERY disappointed in you. The program better work so you can go back to the first textbox.",
+        "type": "non option",
+        "next": "000"
+    }
+}
