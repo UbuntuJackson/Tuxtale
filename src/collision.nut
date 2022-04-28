@@ -11,6 +11,6 @@
         h = 16
     }
     function run(){
-        drawText(font, x, y, "x")
+        drawSprite(sprTile, 0, x, y)
     }
 }

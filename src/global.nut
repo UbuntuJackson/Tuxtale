@@ -7,3 +7,4 @@
 
 //sprites - overworld
 ::sprTaleTux <- newSprite("res/gfx/Tux/taletuxNL.png", 16, 16, 0, 0, 8, 8)
+::sprTile <- newSprite("res/gfx/tiles/block.png", 16, 16, 0, 0, 8, 8)
