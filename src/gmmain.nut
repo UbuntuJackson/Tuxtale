@@ -1,7 +1,7 @@
 //Game data
 ::gmPlay <- false //Currently in-game
-::gvPlayer <- null //Player 1
-//::gvPlayer2 <- null //Player 2
+::gmPlayer <- null //Player 1
+//::gmPlayer2 <- null //Player 2
 ::gmData <- {
 	posX = 0
 	posY = 0
@@ -11,7 +11,7 @@
 ::newGame <- function() {
 	gmData.posX = 150
 	gmData.posY = 150
-	gvPlayer = newActor(Tux, gmData.posX, gmData.posY)
+	gmPlayer = newActor(Tux, gmData.posX, gmData.posY)
 	gmPlay = true
 }
 
@@ -22,6 +22,6 @@
 ::quitGame <- function() {
 	gmPlay = false
 	gmData = gmDataClear
-	deleteActor(gvPlayer)
-	gvPlayer = null
+	deleteActor(gmPlayer)
+	gmPlayer = null
 }
