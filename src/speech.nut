@@ -1,6 +1,6 @@
 //::speech_id <- 0
 //::text <- 0
-::textobj <- jsonRead(fileRead("texts.json"))
+::textobj <- jsonRead(fileRead("src/text/texts.json"))
 local next = ""
 
 ::cursor <- 0
