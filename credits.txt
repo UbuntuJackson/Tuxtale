@@ -1,2 +1,0 @@
-VARIOUS GRAPHICS ARE FROM SUPERTUX ADVANCE (https://github.com/KelvinShadewing/supertux-advance)
-Frost - graphics
