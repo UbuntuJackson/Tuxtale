@@ -1,7 +1,7 @@
 ::objects <- []
 ::nr <- ["x"]
 
-::Solid <- class extends Actor {
+::solid <- class extends Actor {
     w = 16
     h = 16
     constructor(_x, _y, _arr = null){

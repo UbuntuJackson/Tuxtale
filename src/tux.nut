@@ -60,7 +60,7 @@
         if(xsort > 0){
             anim = anWalkRight
             face = 0
-            //Queue(next)
+            //queue(next)
         }
         if(xsort < 0){
             anim = anWalkLeft
