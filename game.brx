@@ -22,6 +22,7 @@ donut("src/speech.nut");
 donut("src/collision.nut");
 donut("src/menus.nut");
 //donut("src/map.nut");
+donut("src/translation.nut")
 
 for(local i = 0; i < 5; i++){
     objects.push(actor[newActor(solid, i * 16, 64)])
