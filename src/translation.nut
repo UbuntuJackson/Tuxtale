@@ -48,4 +48,4 @@
 		return m_translationData[msgid]
 	}
 }
-::g_translation <- Translation()
+::gvTranslation <- Translation()

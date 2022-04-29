@@ -67,23 +67,54 @@
 
 
 //Define menus
+
+// Main menu
 ::meMain <- [
   {
-    name = function() {return "Start Game"},
+    name = function() {return gvTranslation.tr("Start Game")},
     func = function() {selectorPos = 0; newGame()}
   },
   {
-    name = function() {return "Options"},
+    name = function() {return gvTranslation.tr("Options")},
     func = function() {goToMenu(meOptions)}
   },
   {
-    name = function() {return "Quit Game"},
+    name = function() {return gvTranslation.tr("Quit Game")},
     func = function() {gvQuit = true}
   }
 ]
+// Options menu
 ::meOptions <- [
-  {
-    name = function() {return "Under construction"},
-    back = function() {goToMenu(meMain)}
-  }
+	{
+		name = function() {return gvTranslation.tr("Language")},
+		func = function() {
+			if(!fileExists("res/lang/languages.json"))
+				return
+			local languageList=jsonRead(fileRead("res/lang/languages.json"))
+			foreach(entry in languageList["languages"]) {
+				meLanguage.push(
+				{
+					lang=entry[0],
+					langTitle=entry[1],
+					name=function() {return gvTranslation.tr(langTitle)},
+					func=function() {
+						gvTranslation.setLanguage(lang)
+						meLanguage=[]
+						goToMenu(meOptions)
+					}
+				})
+			}
+			meLanguage.push(
+			{
+				name=function() {return gvTranslation.tr("Back")},
+				back=function() {meLanguage=[]; goToMenu(meOptions)},
+				func=function() {meLanguage=[]; goToMenu(meOptions)}
+			})
+			goToMenu(meLanguage)
+		},
+		back = function() {goToMenu(meMain)}
+	}
 ]
+// Language menu
+// Language menu is dynamic so it's empty when program starts
+::meLanguage <- []
