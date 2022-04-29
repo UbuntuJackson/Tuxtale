@@ -33,6 +33,9 @@ for(local i = 0; i < 10; i++){
 objects.push(actor[newActor(solid, 16, 16)])
 objects.push(actor[newActor(solid, 32, 16)])
 
+// Load translation stored in config
+gvTranslation.setLanguage(config.language)
+
 ::main <- function() {
 	//Set up the window
 	setFPS(120)

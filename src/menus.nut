@@ -99,6 +99,7 @@
 					name = function() {return gvTranslation.tr(langTitle)},
 					func = function() {
 						gvTranslation.setLanguage(lang)
+						config.language = lang
 						meLanguage = []
 						goToMenu(meOptions)
 					}
