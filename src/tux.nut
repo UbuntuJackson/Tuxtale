@@ -57,6 +57,8 @@
     }
 
     function run(){
+		if(activeDialog) return updateTux() //If a dialog is active, update Tux without allowing him to move.
+
         if(xsort != 0 && ysort != 0){
             diagonal = 0.707
         }
@@ -64,15 +66,13 @@
             diagonal = 1
         }
 
-				if(!activeDialog) { //If a dialog is active, don't allow moving the player.
-						if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
-						if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
+		if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
+		if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
 
-						if(getcon("right", "hold")) xsort = (nsp * diagonal)
-						if(getcon("left", "hold")) xsort = (-nsp * diagonal)
-						if(getcon("up", "hold")) ysort = (-nsp * diagonal)
-						if(getcon("down", "hold")) ysort = (nsp * diagonal)
-				}
+		if(getcon("right", "hold")) xsort = (nsp * diagonal)
+		if(getcon("left", "hold")) xsort = (-nsp * diagonal)
+		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
+		if(getcon("down", "hold")) ysort = (nsp * diagonal)
 
         if(xsort > 0){
             anim = anWalkRight
@@ -122,10 +122,14 @@
 
         //print(jsonWrite(objects))
         
-        frame += 0.05
-        drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x, y)
+        updateTux()
         //drawSpriteExZ(0, sprite, floor(frame), x - camx, y - camy, 0, flip, 1, 1, 1)
         //drawText(font, x + 20, y + 20, diagonal.tostring())
         //drawText(font, 20, 20, cursor.tostring())
     }
+
+	function updateTux() {
+		frame += 0.05
+		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x, y)
+	}
 }

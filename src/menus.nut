@@ -21,7 +21,7 @@
 
 //Menu functions
 ::updateMenu <- function() {
-	if(menu == [] || gmPlay) return; //If no menu is loaded, or a game instance is currently running.
+	if(menu == [] || gmActive) return; //If no menu is loaded, or a game instance is currently running.
 	
 	drawSprite(sprchalk, 0, 0, 0)
 

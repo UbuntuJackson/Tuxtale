@@ -45,14 +45,12 @@ objects.push(actor[newActor(solid, 32, 16)])
 	while(!gvQuit) {
 		if(getQuit()) break //Detect if game is exited
 
-		//Functions to run
-		if(gmPlay) runActors()
+		//Update various parts of the application
 		updateMenu()
+		updateGame()
 		updateDialogs()
 
 		//Detect pressed keys
-		if(gmPlay && getcon("pause", "press")) quitGame()
-		if(gmPlay && keyPress(k_d)) loadDialog("000")
 		if(keyPress(k_f12)) {
 			toggleFullscreen()
 			config.fullscreen = true
