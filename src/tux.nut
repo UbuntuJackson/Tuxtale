@@ -41,7 +41,6 @@
     }
 
     function run(){
-
         if(xsort != 0 && ysort != 0){
             diagonal = 0.707
         }
@@ -49,13 +48,15 @@
             diagonal = 1
         }
 
-        if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
-        if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
+				if(!activeDialog) { //If a dialog is active, don't allow moving the player.
+						if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
+						if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
 
-        if(getcon("right", "hold")) xsort = (nsp * diagonal)
-        if(getcon("left", "hold")) xsort = (-nsp * diagonal)
-        if(getcon("up", "hold")) ysort = (-nsp * diagonal)
-        if(getcon("down", "hold")) ysort = (nsp * diagonal)
+						if(getcon("right", "hold")) xsort = (nsp * diagonal)
+						if(getcon("left", "hold")) xsort = (-nsp * diagonal)
+						if(getcon("up", "hold")) ysort = (-nsp * diagonal)
+						if(getcon("down", "hold")) ysort = (nsp * diagonal)
+				}
 
         if(xsort > 0){
             anim = anWalkRight

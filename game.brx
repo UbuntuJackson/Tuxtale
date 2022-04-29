@@ -2,7 +2,7 @@ donut("src/global.nut");
 donut("src/controls.nut");
 donut("src/tux.nut");
 donut("src/gmmain.nut");
-donut("src/speech.nut");
+donut("src/dialogs.nut");
 donut("src/collision.nut");
 donut("src/menus.nut");
 //donut("src/map.nut");
@@ -27,16 +27,21 @@ objects.push(actor[newActor(solid, 32, 16)])
 	//Main game loop
 	while(!gvQuit) {
 		if(getQuit()) break //Detect if game is exited
+
+		//Functions to run
 		if(gmPlay) runActors()
-		else updateMenu();
+		updateMenu()
+		updateDialogs()
+
+		//Detect pressed keys
 		if(gmPlay && getcon("pause", "press")) quitGame()
+		if(gmPlay && keyPress(k_d)) loadDialog("000")
 		if(keyPress(k_f12)) {
 			toggleFullscreen()
 			config.fullscreen = true
 		}
-		//if(getcon("down", "press")) cursor++
-		//if(getcon("up", "press")) queue(textObj["000"]["response"][cursor]["next"])
-		update()
+
+		update() //Update to next frame
 	}
 }
 

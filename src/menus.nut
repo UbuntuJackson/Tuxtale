@@ -5,7 +5,7 @@
 
 //Menu functions
 ::updateMenu <- function() {
-	if(menu == []) return; //If no menu is loaded.
+	if(menu == [] || gmPlay) return; //If no menu is loaded, or a game instance is currently running.
 
 	for(local index = 0; index < menu.len(); index++) {
 		drawText(font, 10, 20 * (index + 1), menu[index].name());

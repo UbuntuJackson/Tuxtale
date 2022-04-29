@@ -3,9 +3,9 @@
         "text": "Which response would you like?",
         "moretext": "Ho!",
         "type": "option",
-        "response": [
+        "responses": [
             {
-                "text": "response 1",
+                "text": "response 1f fd fd ",
                 "next": "001"
             },
             {
@@ -20,12 +20,12 @@
     },
     "001": {
         "text": "Wow, you actually chose 001. Great!",
-        "type": "non option",
+        "type": "text",
         "next": "001"
     },
     "002": {
         "text": "Ah, you chose 002. I am VERY disappointed in you. The program better work so you can go back to the first textbox.",
-        "type": "non option",
+        "type": "text",
         "next": "000"
     }
 }
