@@ -18,4 +18,4 @@ Many of this game's assets are from **[SuperTux Advance](https://github.com/kelv
 - [FrostC](https://github.com/Frostwithasideofsalt): Art, misc.
 
 ## Want to contribute?
-Contributions are always open and greatly appreciated! Make sure you read the [coding style guidelines](/CODING_STYLE.md) for this repository and you're ready to go!
+Contributions are always open and greatly appreciated! Make sure you read the [coding style guidelines](/doc/CODING_STYLE.md) for this repository and you're ready to go!
