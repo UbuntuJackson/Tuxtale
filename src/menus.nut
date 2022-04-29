@@ -1,3 +1,19 @@
+// Tuxtale
+// Copyright (C) 2022 Vankata453
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 //Menu variables
 ::menu <- []; //Current menu
 ::selectorPos <- 0; //Selector position
@@ -6,6 +22,8 @@
 //Menu functions
 ::updateMenu <- function() {
 	if(menu == [] || gmPlay) return; //If no menu is loaded, or a game instance is currently running.
+	
+	drawSprite(sprchalk, 0, 0, 0)
 
 	for(local index = 0; index < menu.len(); index++) {
 		drawText(font, 10, 20 * (index + 1), menu[index].name());
