@@ -12,10 +12,10 @@ Many of this game's assets are from **[SuperTux Advance](https://github.com/kelv
 3. Run `game.brx` (included here) with `brux.exe` (included with the brux-gdk nightly build).
 
 ## Credits
-[Ubuntu jackson](https://github.com/UbuntuJackson): Main programming, art, coordination, misc;
-[Vankata453](https://github.com/Vankata453): Programming, misc;
-[mrkubax10](https://github.com/mrkubax10): Programming, misc;
-[FrostC](https://github.com/Frostwithasideofsalt): Art, misc.
+-[Ubuntu jackson](https://github.com/UbuntuJackson): Main programming, art, coordination, misc;
+-[Vankata453](https://github.com/Vankata453): Programming, misc;
+-[mrkubax10](https://github.com/mrkubax10): Programming, misc;
+-[FrostC](https://github.com/Frostwithasideofsalt): Art, misc.
 
 ## Want to contribute?
 Contributions are always open and greatly appreciated! Make sure you read the [coding style guidelines](/CODING_STYLE.md) for this repository and you're ready to go!
