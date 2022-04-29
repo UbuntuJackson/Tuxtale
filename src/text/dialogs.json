@@ -1,42 +1,42 @@
 {
-		"0": {
-			"text": "Which response would you like?",
-			"moretext": "Ho!",
-			"responses": [
-				{
-					"text": "response 1",
-					"next": "1"
-				},
-				{
-					"text": "response 2",
-					"next": "2"
-				},
-				{
-					"text": "nothing"
-				}
-			]
-		},
-		"1": {
-			"text": "Wow, you actually chose 1. Great!",
-			"responses": [
-				{
-					"text": "yoy"
-				}
-			]
-		},
-		"2": {
-			"text": "Ah, you chose 2. I am VERY disappointed in you.",
-			"moretext": "The program better work so you can go back to the first textbox.",
-			"back": "0",
-			"next": "3"
-		},
-		"3": {
-			"text": "You unlocked this cool secret dialogue, without responses.",
-			"back": "2",
-			"next": "4"
-		},
-		"4": {
-			"text": "And here it goes... the last dialogue.",
-			"moretext": "Thanks for joining this dialogue journey!"
-		}
+	"0": {
+		"text": "Which response would you like?",
+		"moretext": "Ho!",
+		"responses": [
+			{
+				"text": "response 1",
+				"next": "1"
+			},
+			{
+				"text": "response 2",
+				"next": "2"
+			},
+			{
+				"text": "nothing"
+			}
+		]
+	},
+	"1": {
+		"text": "Wow, you actually chose 1. Great!",
+		"responses": [
+			{
+				"text": "yoy"
+			}
+		]
+	},
+	"2": {
+		"text": "Ah, you chose 2. I am VERY disappointed in you.",
+		"moretext": "The program better work so you can go back to the first textbox.",
+		"back": "0",
+		"next": "3"
+	},
+	"3": {
+		"text": "You unlocked this cool secret dialogue, without responses.",
+		"back": "2",
+		"next": "4"
+	},
+	"4": {
+		"text": "And here it goes... the last dialogue.",
+		"moretext": "Thanks for joining this dialogue journey!"
+	}
 }
