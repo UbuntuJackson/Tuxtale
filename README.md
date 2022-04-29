@@ -19,3 +19,5 @@ Many of this game's assets are from **[SuperTux Advance](https://github.com/kelv
 
 ## Want to contribute?
 Contributions are always open and greatly appreciated! Make sure you read the [coding style guidelines](/doc/CODING_STYLE.md) for this repository and you're ready to go!
+
+It might be easier to contribute to game if you join our [Discord server](https://discord.gg/TxCGGNqgzm ). so you can discuss your game changes with the Repository owners easier. 
