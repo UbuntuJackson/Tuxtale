@@ -16,18 +16,16 @@
 
 //Menu variables
 ::menu <- []; //Current menu
-::selectorPos <- 0; //Selector position
+::menuSelectorPos <- 0; //Selector position
 //::selectorTimeout <- 0; //Selector timeout
 
 //Menu functions
 ::updateMenu <- function() {
-	if(menu == [] || gmActive) return; //If no menu is loaded, or a game instance is currently running.
-	
-	drawSprite(sprchalk, 0, 0, 0)
+	if(menu == [] || gvGameMode == gmPlay) return; //If no menu is loaded, or a game instance is currently running.
 
 	for(local index = 0; index < menu.len(); index++) {
 		drawText(font, 10, 20 * (index + 1), menu[index].name());
-		if(selectorPos == index) {
+		if(menuSelectorPos == index) {
 			setDrawColor(0xFFFFFF);
 			drawRec(10, 20 * (index + 1) + 10, menu[index].name().len() * fontWidth, 0, false);
 		}
@@ -35,24 +33,24 @@
 	//Controls for menu navigation
 	//Up
 	if(getcon("up", "press")) {
-		if(selectorPos == 0) {
-			selectorPos = menu.len() - 1;
+		if(menuSelectorPos == 0) {
+			menuSelectorPos = menu.len() - 1;
 			return;
 		}
-		selectorPos--;
+		menuSelectorPos--;
 	}
 	//Down
 	if(getcon("down", "press")) {
-		if(selectorPos == menu.len() - 1) {
-			selectorPos = 0;
+		if(menuSelectorPos == menu.len() - 1) {
+			menuSelectorPos = 0;
 			return;
 		}
-		selectorPos++;
+		menuSelectorPos++;
 	}
 	//Accept
 	if(getcon("accept", "press")) {
-		if(!menu[selectorPos].rawin("func")) return;
-		menu[selectorPos].func();
+		if(!menu[menuSelectorPos].rawin("func")) return;
+		menu[menuSelectorPos].func();
 	}
 	//Pause
 	if(getcon("pause", "press")) {
@@ -61,7 +59,7 @@
 	}
 }
 ::goToMenu <- function(newMenu) {
-	selectorPos = 0;
+	menuSelectorPos = 0;
 	menu = newMenu;
 }
 
@@ -70,7 +68,7 @@
 ::meMain <- [
   {
     name = function() {return "Start Game"},
-    func = function() {selectorPos = 0; newGame()}
+    func = function() {menuSelectorPos = 0; newGame()}
   },
   {
     name = function() {return "Options"},

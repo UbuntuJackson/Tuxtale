@@ -18,6 +18,7 @@ donut("src/global.nut");
 donut("src/controls.nut");
 donut("src/tux.nut");
 donut("src/gmmain.nut");
+donut("src/gmplay.nut");
 donut("src/dialogs.nut");
 donut("src/collision.nut");
 donut("src/menus.nut");
@@ -28,7 +29,7 @@ for(local i = 0; i < 5; i++){
     objects.push(actor[newActor(solid, i * 16, 64)])
 }
 for(local i = 0; i < 10; i++){
-    objects.push(actor[newActor(solid, 90, 16 * i)])
+    objects.push(actor[newActor(solid, 96, 16 * i)])
 }
 objects.push(actor[newActor(solid, 16, 16)])
 objects.push(actor[newActor(solid, 32, 16)])
@@ -40,14 +41,14 @@ objects.push(actor[newActor(solid, 32, 16)])
 	setWindowTitle("Tuxtale [PROTOTYPE]")
 	gvQuit = 0
 	menu = meMain
+	gvGameMode = gmMenu
 
 	//Main game loop
 	while(!gvQuit) {
 		if(getQuit()) break //Detect if game is exited
 
 		//Update various parts of the application
-		updateMenu()
-		updateGame()
+		gvGameMode()		
 		updateDialogs()
 
 		//Detect pressed keys
