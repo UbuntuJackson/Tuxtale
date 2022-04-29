@@ -27,6 +27,10 @@
 	*/
 	function setLanguage(lang) {
 		m_lang=lang
+		if(lang=="en") {
+			m_translationData={}
+			return
+		}
 		local langFile="res/lang/"+lang+".json"
 		if(!fileExists(langFile))
 			return
