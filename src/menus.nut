@@ -90,16 +90,16 @@
 		func = function() {
 			if(!fileExists("res/lang/languages.json"))
 				return
-			local languageList=jsonRead(fileRead("res/lang/languages.json"))
+			local languageList = jsonRead(fileRead("res/lang/languages.json"))
 			foreach(entry in languageList["languages"]) {
 				meLanguage.push(
 				{
-					lang=entry[0],
-					langTitle=entry[1],
-					name=function() {return gvTranslation.tr(langTitle)},
-					func=function() {
+					lang = entry[0],
+					langTitle = entry[1],
+					name = function() {return gvTranslation.tr(langTitle)},
+					func = function() {
 						gvTranslation.setLanguage(lang)
-						meLanguage=[]
+						meLanguage = []
 						goToMenu(meOptions)
 					}
 				})
@@ -107,8 +107,8 @@
 			meLanguage.push(
 			{
 				name=function() {return gvTranslation.tr("Back")},
-				back=function() {meLanguage=[]; goToMenu(meOptions)},
-				func=function() {meLanguage=[]; goToMenu(meOptions)}
+				back=function() {meLanguage = []; goToMenu(meOptions)},
+				func=function() {meLanguage = []; goToMenu(meOptions)}
 			})
 			goToMenu(meLanguage)
 		},
