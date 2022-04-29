@@ -21,8 +21,10 @@
 
 //Menu functions
 ::updateMenu <- function() {
-	if(menu == []) return; //If no menu is loaded.
+	if(menu == [] || gmActive) return; //If no menu is loaded, or a game instance is currently running.
+	
 	drawSprite(sprchalk, 0, 0, 0)
+
 	for(local index = 0; index < menu.len(); index++) {
 		drawText(font, 10, 20 * (index + 1), menu[index].name());
 		if(selectorPos == index) {

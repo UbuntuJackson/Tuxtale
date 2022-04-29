@@ -15,20 +15,19 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Game data
-::gmPlay <- false //Currently in-game
+::gmActive <- false //Currently in-game
 ::gmPlayer <- null //Player 1
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
-	posX = 0
-	posY = 0
+	posX = 150 //X pos of first player
+	posY = 150 //Y pos of first player
+	dialogResponses = {} //Stores all responses from dialogs
 };
-::gmDataClear <- gmData; //Copy of game data with all values cleared
+::gmDataClear <- jsonWrite(gmData); //String copy of game data with all values cleared
 
 ::newGame <- function() {
-	gmData.posX = 150
-	gmData.posY = 150
 	gmPlayer = newActor(Tux, gmData.posX, gmData.posY)
-	gmPlay = true
+	gmActive = true
 }
 
 //::saveGame <- function() {
@@ -36,8 +35,16 @@
 //}
 
 ::quitGame <- function() {
-	gmPlay = false
-	gmData = gmDataClear
+	gmActive = false
+	gmData = jsonRead(gmDataClear)
 	deleteActor(gmPlayer)
 	gmPlayer = null
+}
+
+::updateGame <- function() {
+	if(!gmActive) return //If not in-game, do not do anything.
+
+	runActors()
+	if(getcon("pause", "press")) quitGame() //Pressing the Pause key leaves the game.
+	if(keyPress(k_d)) loadDialog(0) //TEMPORARY: Loads dialog number 0 by pressing "D" in-game.
 }
