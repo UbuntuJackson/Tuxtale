@@ -127,6 +127,6 @@
 
 	function updateTux() {
 		frame += 0.05
-		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x, y)
+		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x -  gmData.camX, y - gmData.camY)
 	}
 }
