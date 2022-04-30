@@ -66,7 +66,7 @@
             diagonal = 1
         }
 
-			gmData.camX += xsort
+		gmData.camX += xsort
         gmData.camY += ysort
 
         if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
