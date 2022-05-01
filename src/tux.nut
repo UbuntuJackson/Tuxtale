@@ -66,8 +66,13 @@
             diagonal = 1
         }
 
-		gmData.camX += xsort
-        gmData.camY += ysort
+        gmData.camX = x - screenW()/2
+        gmData.camY = y - screenH()/2
+
+        if(gmData.camX > gmData.ux) gmData.camX = gmData.ux
+	    if(gmData.camX < 0) gmData.camX = 0
+	    if(gmData.camY > gmData.uy) gmData.camY = gmData.uy
+	    if(gmData.camY < 0) gmData.camY = 0
 
         if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
         if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
@@ -113,10 +118,30 @@
 
         if(collision(x + xsort, y)){
             xsort = 0
+            if(ysort == 0){
+                switch(face){
+                    case 0:
+                        anim = anStandRight
+                        break
+                    case 1:
+                        anim = anStandLeft
+                        break
+                }
+            }
         }
 
         if(collision(x, y + ysort)){
             ysort = 0
+            if(xsort == 0){
+                switch(face){
+                    case 2:
+                        anim = anStandDown
+                        break
+                    case 3:
+                        anim = anStandUp
+                        break
+                }
+            }
         }
 
         x+=xsort
@@ -127,6 +152,6 @@
 
 	function updateTux() {
 		frame += 0.05
-		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x -  gmData.camX, y - gmData.camY)
+		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y- gmData.camY)
 	}
 }

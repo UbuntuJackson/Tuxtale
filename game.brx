@@ -25,14 +25,17 @@ donut("src/menus.nut");
 //donut("src/map.nut");
 donut("src/translation.nut")
 
-for(local i = 0; i < 5; i++){
+/*for(local i = 0; i < 5; i++){
     objects.push(actor[newActor(solid, i * 16, 64)])
 }
 for(local i = 0; i < 10; i++){
     objects.push(actor[newActor(solid, 96, 16 * i)])
 }
 objects.push(actor[newActor(solid, 16, 16)])
-objects.push(actor[newActor(solid, 32, 16)])
+objects.push(actor[newActor(solid, 32, 16)])*/
+
+
+
 
 ::main <- function() {
 	//Set up the window
@@ -42,6 +45,15 @@ objects.push(actor[newActor(solid, 32, 16)])
 	gvQuit = 0
 	menu = meMain
 	gvGameMode = gmMenu
+
+    /*if(gmPlayer) {
+		gmData.camX = gmPlayer.x - (screenW() / 2)
+		gmData.camY = gmPlayer.y - (screenH() / 2)
+	}
+	else {
+		gmData.camX = 0
+		gmData.camY = 0
+	}*/
 
 	//Main game loop
 	while(!gvQuit) {

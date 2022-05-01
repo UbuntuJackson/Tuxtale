@@ -22,6 +22,8 @@
 	posY = 150 //Y pos of first player
 	camX = 0 //X pos of the camera
 	camY = 0 //Y pos of the camera
+    ux = 1000
+    uy = 1000
 	dialogResponses = {} //Stores all responses from dialogs
 };
 ::gmDataClear <- jsonWrite(gmData); //String copy of game data with all values cleared
@@ -29,6 +31,14 @@
 //Define the in-game gamemode.
 ::gmPlay <- function() {
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
+
+    /*gmData.camX = x - screenW()/2
+    gmData.camY = y - screenH()/2
+
+    if(gmData.camX > gmData.ux) gmData.camX = gmData.ux
+	if(gmData.camX < 0) gmData.camX = 0
+	if(gmData.camY > gmData.uy) gmData.camY = gmData.uy
+	if(gmData.camY < 0) gmData.camY = 0*/
 
 	runActors()
 	if(getcon("pause", "press")) quitGame() //Pressing the Pause key leaves the game.
@@ -38,7 +48,7 @@
 //Additional functions for managing the in-game gamemode.
 
 ::newGame <- function() {
-	gmPlayer = newActor(Tux, gmData.posX, gmData.posY)
+	load_map(map_2)
 	gvGameMode = gmPlay
 }
 
@@ -52,3 +62,5 @@
 	deleteActor(gmPlayer)
 	gmPlayer = null
 }
+
+	
