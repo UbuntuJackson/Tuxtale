@@ -75,65 +75,103 @@
 
 
 //Define menus
+
+//Main menu
 ::meMain <- [
   {
-    name = function() {return "Start Game"},
+    name = function() {return gvTranslation.tr("Start Game")},
     func = function() {goToMenu(meStartGame)}
   },
   {
-    name = function() {return "Options"},
+    name = function() {return gvTranslation.tr("Options")},
     func = function() {goToMenu(meOptions)}
   },
   {
-    name = function() {return "Quit Game"},
+    name = function() {return gvTranslation.tr("Quit Game")},
     func = function() {gvQuit = true}
   }
 ]
+//Start game menu
 ::meStartGame <- [
   {
-    name = function() {return "File 1" + (!fileExists("save/save" + 1 + ".json") ? " [EMPTY]" : "")},
+    name = function() {return gvTranslation.tr("File 1") + (!fileExists("save/save" + 1 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
     func = function() {quitMenu(); startGame(1)}
   },
   {
-    name = function() {return "File 2" + (!fileExists("save/save" + 2 + ".json") ? " [EMPTY]" : "")},
+    name = function() {return gvTranslation.tr("File 2") + (!fileExists("save/save" + 2 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
     func = function() {quitMenu(); startGame(2)}
   },
   {
-    name = function() {return "File 3" + (!fileExists("save/save" + 3 + ".json") ? " [EMPTY]" : "")},
+    name = function() {return gvTranslation.tr("File 3") + (!fileExists("save/save" + 3 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
     func = function() {quitMenu(); startGame(3)}
   },
-	{
-    name = function() {return "File 4" + (!fileExists("save/save" + 4 + ".json") ? " [EMPTY]" : "")},
+  {
+    name = function() {return gvTranslation.tr("File 4") + (!fileExists("save/save" + 4 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
     func = function() {quitMenu(); startGame(4)}
   },
-	{
-    name = function() {return "File 5" + (!fileExists("save/save" + 5 + ".json") ? " [EMPTY]" : "")},
+  {
+    name = function() {return gvTranslation.tr("File 5") + (!fileExists("save/save" + 5 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
     func = function() {quitMenu(); startGame(5)}
   },
-	{
-		name = function() {return "Back"},
-		func = function() {goToMenu(meMain)},
-		back = function() {goToMenu(meMain)}
-	}
-]
-::meOptions <- [
   {
-    name = function() {return "Under construction"},
-    back = function() {fileWrite("config.json", jsonWrite(config)); goToMenu(meMain)}
+    name = function() {return gvTranslation.tr("Back")},
+    func = function() {goToMenu(meMain)},
+    back = function() {goToMenu(meMain)}
   }
 ]
+//Options menu
+::meOptions <- [
+  {
+		name = function() {return gvTranslation.tr("Language")},
+		func = function() {
+			if(!fileExists("res/lang/languages.json"))
+				return
+			local languageList = jsonRead(fileRead("res/lang/languages.json"))
+			foreach(entry in languageList["languages"]) {
+				meLanguage.push(
+				{
+					lang = entry[0],
+					langTitle = entry[1],
+					name = function() {return gvTranslation.tr(langTitle)},
+					func = function() {
+						gvTranslation.setLanguage(lang)
+						config.language = lang
+						meLanguage = []
+						goToMenu(meOptions)
+					}
+				})
+			}
+			meLanguage.push(
+			{
+				name = function() {return gvTranslation.tr("Back")},
+				back = function() {meLanguage = []; goToMenu(meOptions)},
+				func = function() {meLanguage = []; goToMenu(meOptions)}
+			})
+			goToMenu(meLanguage)
+		}
+	},
+	{
+		name = function() {return gvTranslation.tr("Back")},
+		func = function() {fileWrite("config.json", jsonWrite(config)); goToMenu(meMain)},
+		back = function() {fileWrite("config.json", jsonWrite(config)); goToMenu(meMain)}
+	}
+]
+//Pause menu
 ::mePause <- [
   {
-    name = function() {return "Continue"},
+    name = function() {return gvTranslation.tr("Continue")},
     func = function() {quitMenu()}
   },
 	{
-    name = function() {return "Save Game"},
+    name = function() {return gvTranslation.tr("Save Game")},
     func = function() {saveGame(); quitMenu()}
   },
   {
-    name = function() {return "Quit Game"},
+    name = function() {return gvTranslation.tr("Quit Game")},
     func = function() {quitMenu(); quitGame()},
     back = function() {quitMenu()}
   }
 ]
+//Language menu
+//Language menu is dynamic so it's empty when the program starts
+::meLanguage <- []

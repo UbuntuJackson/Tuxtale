@@ -68,5 +68,6 @@
 		downPeek = -1
 		upPeek = -1
 	}
-	fullscreen = false
+	fullscreen = false,
+	language = "en"
 }

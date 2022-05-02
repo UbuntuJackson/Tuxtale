@@ -38,6 +38,9 @@ objects.push(actor[newActor(solid, 32, 16)])
 //Load config from file, if available
 if(fileExists("config.json")) config = jsonRead(fileRead("config.json"))
 
+//Load translations, according to the current language, set in config
+gvTranslation.setLanguage(config.language)
+
 //Set up the window
 setFPS(120)
 setResolution(400, 240)
