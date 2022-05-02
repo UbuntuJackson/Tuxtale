@@ -43,7 +43,8 @@
 	if(fileExists("save/save" + gmSave + ".json")) { //Load game progress from save file, if it exists.
 		gmData = mergeTable(gmData, jsonRead(fileRead("save/save" + gmSave + ".json")))
 	}
-	gmPlayer = newActor(Tux, gmData.posX, gmData.posY)
+	loadMap("res/map/test.json") //Load the map
+	gmPlayer = newActor(Tux, gmData.posX, gmData.posY) //Define the player (Tux)
 	gvGameMode = gmPlay
 }
 

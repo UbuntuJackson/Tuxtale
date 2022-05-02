@@ -16,7 +16,7 @@
 
 //Define the main menu gamemode.
 ::gmMenu <- function() {
-	drawSprite(sprchalk, 0, 0, 0)
+	drawSprite(sprChalk, 0, 0, 0)
 	updateMenu(meMain)
 	//Backgrounds, as well as other resources, which are unique to the main menus, should be drawn here.
 }

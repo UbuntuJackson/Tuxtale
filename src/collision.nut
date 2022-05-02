@@ -14,8 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-::objects <- [] //The list that objects are added to. However, I think we can replace this with the actor list.
-::nr <- ["x"]
+::objects <- [] //The list that objects are added to. However, it can be replaced with the actor list.
 
 ::solid <- class extends Actor {
     w = 16
@@ -30,5 +29,3 @@
         drawSprite(sprTile, 0, x - gmData.camX, y - gmData.camY)
     }
 }
-
-

@@ -17,15 +17,15 @@
 ::Tux <- class extends Actor {
     frame = 0.0
     anim = [] //Animation frame delimiters: [start, end, speed]
-	anStandRight = [0.0, 0.0, "standright"]
+  anStandRight = [0.0, 0.0, "standright"]
     anStandLeft = [12.0, 12.0, "standleft"]
     anStandUp = [4.0, 4.0, "standup"]
     anStandDown = [8.0, 8.0, "standdown"]
-	anWalkRight = [0.0, 3.0, "walkright"]
+  anWalkRight = [0.0, 3.0, "walkright"]
     anWalkDown = [8.0, 11.0, "walkdown"]
     anWalkUp = [4.0, 7.0, "walkup"]
     anWalkLeft = [12.0, 15.0]
-	//anHurt = [3.0, 12.0, "hurt"]
+  //anHurt = [3.0, 12.0, "hurt"]
     hspeed = 0
     vspeed = 0
     mspeed = 1
@@ -57,7 +57,10 @@
     }
 
     function run() {
-			if(gvGameOverlay != emptyFunc) return updateTux() //If an overlay is active, update Tux without allowing him to move.
+      if(gvGameOverlay != emptyFunc) { //If an overlay is active, update Tux without allowing him to move.
+          tuxStand()
+          return updateTux()
+      }
 
         if(xsort != 0 && ysort != 0) {
             diagonal = 0.707
@@ -66,7 +69,7 @@
             diagonal = 1
         }
 
-				//Update camera position in the game data.
+        //Update camera position in the game data.
         gmData.camX += xsort
         gmData.camY += ysort
 
@@ -95,42 +98,46 @@
             face = 3
         }
 
-        if(xsort == 0 && ysort == 0){
-            switch(face){
-                case 0:
-                    anim = anStandRight
-                    break
-                case 1:
-                    anim = anStandLeft
-                    break
-                case 2:
-                    anim = anStandDown
-                    break
-                case 3:
-                    anim = anStandUp
-                    break
-            }
-        }
+        if(xsort == 0 && ysort == 0) tuxStand()
 
         if(collision(x + xsort, y)){
             xsort = 0
+            tuxStand()
         }
 
         if(collision(x, y + ysort)){
             ysort = 0
+            tuxStand()
         }
 
         x += xsort
         y += ysort
-				//Update Tux's position in the game data.
-				gmData.posX = x
-				gmData.posY = y
+        //Update Tux's position in the game data.
+        gmData.posX = x
+        gmData.posY = y
         
         updateTux()
     }
 
-	function updateTux() {
-		frame += 0.05
-		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
-	}
+    function tuxStand() {
+      switch(face) {
+          case 0:
+              anim = anStandRight
+              break
+          case 1:
+              anim = anStandLeft
+              break
+          case 2:
+              anim = anStandDown
+              break
+          case 3:
+              anim = anStandUp
+              break
+      }
+    }
+
+    function updateTux() {
+        frame += 0.05
+        drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
+    }
 }

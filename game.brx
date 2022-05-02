@@ -23,18 +23,9 @@ donut("src/menus.nut");
 donut("src/gmmain.nut");
 donut("src/gmplay.nut");
 donut("src/gmoverlay.nut");
-//donut("src/map.nut");
+donut("src/map.nut");
 donut("src/translation.nut");
 donut("src/external/util.nut")
-
-for(local i = 0; i < 5; i++){
-    objects.push(actor[newActor(solid, i * 16, 64)])
-}
-for(local i = 0; i < 10; i++){
-    objects.push(actor[newActor(solid, 96, 16 * i)])
-}
-objects.push(actor[newActor(solid, 16, 16)])
-objects.push(actor[newActor(solid, 32, 16)])
 
 //Load config from file, if available
 if(fileExists("config.json")) config = mergeTable(config, jsonRead(fileRead("config.json")))
@@ -46,7 +37,11 @@ gvTranslation.setLanguage(config.language)
 setFPS(120)
 setResolution(400, 240)
 setWindowTitle("Tuxtale [PROTOTYPE]")
+
+//Set fullscreen according to preference in config
 if(config.fullscreen) toggleFullscreen()
+
+//Set gamemode and overlay to their defaults
 gvGameMode = gmMenu
 gvGameOverlay = emptyFunc
 
