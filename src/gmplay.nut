@@ -31,8 +31,8 @@
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
 
 	runActors()
-	if(getcon("pause", "press")) quitGame() //Pressing the Pause key leaves the game.
-	if(keyPress(k_d)) loadDialog(0) //TEMPORARY: Loads dialog number 0 by pressing "D" in-game.
+	if(getcon("pause", "press")) setOverlay(updateMenu, mePause) //Pressing the Pause key leaves the game.
+	if(keyPress(k_d)) setOverlay(updateDialog, "0") //TEMPORARY: Loads dialog number 0 by pressing "D" in-game.
 }
 
 //Additional functions for managing the in-game gamemode.

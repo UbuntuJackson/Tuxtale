@@ -30,7 +30,12 @@
 //::px <- 0 //unused
 //::py <- 0 //unused
 ::gvCamTarget <- null
-::gvGameMode <- null
+::gvGameMode <- null //Current gamemode
+::gvGameOverlay <- null //Current game overlay
+::gvGameOverlayParam <- null //Current game overlay parameter
+
+//Others
+::emptyFunc <- function() {return}
 
 ::config <- {
 	key = {

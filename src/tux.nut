@@ -57,7 +57,7 @@
     }
 
     function run() {
-			if(activeDialog) return updateTux() //If a dialog is active, update Tux without allowing him to move.
+			if(gvGameOverlay != emptyFunc) return updateTux() //If an overlay is active, update Tux without allowing him to move.
 
         if(xsort != 0 && ysort != 0) {
             diagonal = 0.707
@@ -66,7 +66,7 @@
             diagonal = 1
         }
 
-			gmData.camX += xsort
+        gmData.camX += xsort
         gmData.camY += ysort
 
         if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0

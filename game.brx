@@ -17,11 +17,12 @@
 donut("src/global.nut");
 donut("src/controls.nut");
 donut("src/tux.nut");
-donut("src/gmmain.nut");
-donut("src/gmplay.nut");
 donut("src/dialogs.nut");
 donut("src/collision.nut");
 donut("src/menus.nut");
+donut("src/gmmain.nut");
+donut("src/gmplay.nut");
+donut("src/gmoverlay.nut");
 //donut("src/map.nut");
 donut("src/translation.nut")
 
@@ -34,31 +35,26 @@ for(local i = 0; i < 10; i++){
 objects.push(actor[newActor(solid, 16, 16)])
 objects.push(actor[newActor(solid, 32, 16)])
 
-::main <- function() {
-	//Set up the window
-	setFPS(120)
-	setResolution(400, 240)
-	setWindowTitle("Tuxtale [PROTOTYPE]")
-	gvQuit = 0
-	menu = meMain
-	gvGameMode = gmMenu
+//Set up the window
+setFPS(120)
+setResolution(400, 240)
+setWindowTitle("Tuxtale [PROTOTYPE]")
+gvGameMode = gmMenu
+gvGameOverlay = emptyFunc
 
-	//Main game loop
-	while(!gvQuit) {
-		if(getQuit()) break //Detect if game is exited
+//Main game loop
+while(!gvQuit) {
+	if(getQuit()) break //Detect if game is exited
 
-		//Update various parts of the application
-		gvGameMode()		
-		updateDialogs()
+	//Update various parts of the application
+	gvGameMode()
+	gvGameOverlayParam ? gvGameOverlay(gvGameOverlayParam) : gvGameOverlay()
 
-		//Detect pressed keys
-		if(keyPress(k_f12)) {
-			toggleFullscreen()
-			config.fullscreen = true
-		}
-
-		update() //Update to next frame
+	//Detect pressed keys
+	if(keyPress(k_f12)) {
+		toggleFullscreen()
+		config.fullscreen = true
 	}
-}
 
-main();
+	update() //Update to next frame
+}

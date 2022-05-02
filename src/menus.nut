@@ -15,13 +15,15 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Menu variables
-::menu <- []; //Current menu
+::menu <- null; //Current menu
 ::menuSelectorPos <- 0; //Selector position
 //::selectorTimeout <- 0; //Selector timeout
+::menuBackTimeout <- 2; //Ticks before quitting the menu is allowed
 
 //Menu functions
-::updateMenu <- function() {
-	if(menu == [] || gvGameMode == gmPlay) return; //If no menu is loaded, or a game instance is currently running.
+::updateMenu <- function(optMenu = null) {
+	if(!menu && !optMenu) return quitMenu(); //If no menu is loaded and no optional menu is given.
+	if(!menu) menu = optMenu; //If an optional menu to use was given as a parameter, set it as the current menu, if there isn't one already.
 
 	for(local index = 0; index < menu.len(); index++) {
 		drawText(font, 10, 20 * (index + 1), menu[index].name());
@@ -53,14 +55,22 @@
 		menu[menuSelectorPos].func();
 	}
 	//Pause
-	if(getcon("pause", "press")) {
+	if(getcon("pause", "press") && menuBackTimeout <= 0) {
 		if(!menu[menu.len() - 1].rawin("back")) return;
 		menu[menu.len() - 1].back();
 	}
+	if(menuBackTimeout > 0) menuBackTimeout--; //Count the current tick in the menu back timeout.
 }
-::goToMenu <- function(newMenu) {
+::goToMenu <- function(newMenu) { //Go to another menu.
 	menuSelectorPos = 0;
+	menuBackTimeout = 2;
 	menu = newMenu;
+}
+::quitMenu <- function() { //Reset the menu and its values.
+	menuSelectorPos = 0;
+	menu = null;
+	menuBackTimeout = 2;
+	if(gvGameOverlay != emptyFunc) resetOverlay();
 }
 
 
@@ -68,7 +78,7 @@
 ::meMain <- [
   {
     name = function() {return "Start Game"},
-    func = function() {menuSelectorPos = 0; newGame()}
+    func = function() {quitMenu(); newGame()}
   },
   {
     name = function() {return "Options"},
@@ -83,5 +93,16 @@
   {
     name = function() {return "Under construction"},
     back = function() {goToMenu(meMain)}
+  }
+]
+::mePause <- [
+  {
+    name = function() {return "Continue"},
+		func = function() {quitMenu()}
+  },
+	{
+    name = function() {return "Quit Game"},
+		func = function() {quitMenu(); quitGame()},
+    back = function() {quitMenu()}
   }
 ]
