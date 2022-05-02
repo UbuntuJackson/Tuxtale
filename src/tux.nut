@@ -66,6 +66,7 @@
             diagonal = 1
         }
 
+				//Update camera position in the game data.
         gmData.camX += xsort
         gmData.camY += ysort
 
@@ -119,14 +120,17 @@
             ysort = 0
         }
 
-        x+=xsort
-        y+=ysort
+        x += xsort
+        y += ysort
+				//Update Tux's position in the game data.
+				gmData.posX = x
+				gmData.posY = y
         
         updateTux()
     }
 
 	function updateTux() {
 		frame += 0.05
-		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x -  gmData.camX, y - gmData.camY)
+		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
 	}
 }

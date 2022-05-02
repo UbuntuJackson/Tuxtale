@@ -35,10 +35,14 @@ for(local i = 0; i < 10; i++){
 objects.push(actor[newActor(solid, 16, 16)])
 objects.push(actor[newActor(solid, 32, 16)])
 
+//Load config from file, if available
+if(fileExists("config.json")) config = jsonRead(fileRead("config.json"))
+
 //Set up the window
 setFPS(120)
 setResolution(400, 240)
 setWindowTitle("Tuxtale [PROTOTYPE]")
+if(config.fullscreen) toggleFullscreen()
 gvGameMode = gmMenu
 gvGameOverlay = emptyFunc
 
@@ -51,9 +55,10 @@ while(!gvQuit) {
 	gvGameOverlayParam ? gvGameOverlay(gvGameOverlayParam) : gvGameOverlay()
 
 	//Detect pressed keys
-	if(keyPress(k_f12)) {
+	if(keyPress(k_f12)) { //F12 - toggle fullscreen mode and save the new preference in config
 		toggleFullscreen()
-		config.fullscreen = true
+		config.fullscreen = !config.fullscreen
+		fileWrite("config.json", jsonWrite(config))
 	}
 
 	update() //Update to next frame

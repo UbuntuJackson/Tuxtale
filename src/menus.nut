@@ -18,7 +18,7 @@
 ::menu <- null; //Current menu
 ::menuSelectorPos <- 0; //Selector position
 //::selectorTimeout <- 0; //Selector timeout
-::menuBackTimeout <- 2; //Ticks before quitting the menu is allowed
+::menuBackTimeout <- 2; //Frames before quitting the menu is allowed
 
 //Menu functions
 ::updateMenu <- function(optMenu = null) {
@@ -29,7 +29,7 @@
 		drawText(font, 10, 20 * (index + 1), menu[index].name());
 		if(menuSelectorPos == index) {
 			setDrawColor(0xFFFFFF);
-			drawRec(10, 20 * (index + 1) + 10, menu[index].name().len() * fontWidth, 0, false);
+			drawRec(9, 20 * (index + 1) + 10, menu[index].name().len() * fontWidth, 0, false);
 		}
 	}
 	//Controls for menu navigation
@@ -78,7 +78,7 @@
 ::meMain <- [
   {
     name = function() {return "Start Game"},
-    func = function() {quitMenu(); newGame()}
+    func = function() {goToMenu(meStartGame)}
   },
   {
     name = function() {return "Options"},
@@ -89,20 +89,51 @@
     func = function() {gvQuit = true}
   }
 ]
+::meStartGame <- [
+  {
+    name = function() {return "File 1" + (!fileExists("save/save" + 1 + ".json") ? " [EMPTY]" : "")},
+    func = function() {quitMenu(); startGame(1)}
+  },
+  {
+    name = function() {return "File 2" + (!fileExists("save/save" + 2 + ".json") ? " [EMPTY]" : "")},
+    func = function() {quitMenu(); startGame(2)}
+  },
+  {
+    name = function() {return "File 3" + (!fileExists("save/save" + 3 + ".json") ? " [EMPTY]" : "")},
+    func = function() {quitMenu(); startGame(3)}
+  },
+	{
+    name = function() {return "File 4" + (!fileExists("save/save" + 4 + ".json") ? " [EMPTY]" : "")},
+    func = function() {quitMenu(); startGame(4)}
+  },
+	{
+    name = function() {return "File 5" + (!fileExists("save/save" + 5 + ".json") ? " [EMPTY]" : "")},
+    func = function() {quitMenu(); startGame(5)}
+  },
+	{
+		name = function() {return "Back"},
+		func = function() {goToMenu(meMain)},
+		back = function() {goToMenu(meMain)}
+	}
+]
 ::meOptions <- [
   {
     name = function() {return "Under construction"},
-    back = function() {goToMenu(meMain)}
+    back = function() {fileWrite("config.json", jsonWrite(config)); goToMenu(meMain)}
   }
 ]
 ::mePause <- [
   {
     name = function() {return "Continue"},
-		func = function() {quitMenu()}
+    func = function() {quitMenu()}
   },
 	{
+    name = function() {return "Save Game"},
+    func = function() {saveGame(); quitMenu()}
+  },
+  {
     name = function() {return "Quit Game"},
-		func = function() {quitMenu(); quitGame()},
+    func = function() {quitMenu(); quitGame()},
     back = function() {quitMenu()}
   }
 ]
