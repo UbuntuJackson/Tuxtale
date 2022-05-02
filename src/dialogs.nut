@@ -16,36 +16,32 @@
 
 ::dialogsData <- jsonRead(fileRead("src/text/dialogs.json"))
 
-::activeDialog <- null
-::dialogSelectorPos <- 0
+::dialog <- null //Current dialog
+::dialogSelectorPos <- 0 //Selector position
 
-::loadDialog <- function(id) {
-		dialogSelectorPos = 0
-		activeDialog = id.tostring()
-}
-
-::updateDialogs <- function() {
-		if(!activeDialog) return //If there is no active dialog, requested to be displayed.
-		if(!dialogsData.rawin(activeDialog)) { //If the given dialog doesn't exist.
-				print("Dialog with id " + activeDialog + " doesn't exist.")
-				activeDialog = null
+::updateDialog <- function(optDialog = null) {
+		if(!dialog && !optDialog) return quitDialog() //If there is no active dialog and no optional one is given as a parameter.
+		if(!dialog) dialog = optDialog //If an optional dialog to use was given as a parameter, set it as the current one, if there isn't one already.
+		if(!dialogsData.rawin(dialog)) { //If the given dialog doesn't exist.
+				print("Dialog with id " + dialog + " doesn't exist.")
+				quitDialog()
 				return
 		}
 
 		//Draw main text
-		if(dialogsData[activeDialog].rawin("moretext")) {
-				drawText(font, screenW() / 2 - dialogsData[activeDialog]["text"].len() * fontWidth / 2, screenH() / 2 - 25, dialogsData[activeDialog]["text"])
-				drawText(font, screenW() / 2 - dialogsData[activeDialog]["moretext"].len() * fontWidth / 2, screenH() / 2 - 12, dialogsData[activeDialog]["moretext"])
+		if(dialogsData[dialog].rawin("moretext")) {
+				drawText(font, screenW() / 2 - dialogsData[dialog]["text"].len() * fontWidth / 2, screenH() / 2 - 25, dialogsData[dialog]["text"])
+				drawText(font, screenW() / 2 - dialogsData[dialog]["moretext"].len() * fontWidth / 2, screenH() / 2 - 12, dialogsData[dialog]["moretext"])
 		}
 		else {
-				drawText(font, screenW() / 2 - dialogsData[activeDialog]["text"].len() * fontWidth / 2, screenH() / 2 - 10, dialogsData[activeDialog]["text"])
+				drawText(font, screenW() / 2 - dialogsData[dialog]["text"].len() * fontWidth / 2, screenH() / 2 - 10, dialogsData[dialog]["text"])
 		}
 
-		if(dialogsData[activeDialog].rawin("responses")) { //The dialog has responses to choose from.
+		if(dialogsData[dialog].rawin("responses")) { //The dialog has responses to choose from.
 				//Draw the responses.
-				local responsesLeft = dialogsData[activeDialog]["responses"].len() //Responses left to print by the loop.
-				for(local responseId = 0; responseId < dialogsData[activeDialog]["responses"].len(); responseId++) {
-						local response = dialogsData[activeDialog]["responses"][responseId]
+				local responsesLeft = dialogsData[dialog]["responses"].len() //Responses left to print by the loop.
+				for(local responseId = 0; responseId < dialogsData[dialog]["responses"].len(); responseId++) {
+						local response = dialogsData[dialog]["responses"][responseId]
 						local responsePosX = screenW() / 2 - response["text"].len() * fontWidth / 2
 						local responsePosY = screenH() / 2 + 15 * (responseId + 1)
 						drawText(font, responsePosX, responsePosY, response["text"])
@@ -57,7 +53,7 @@
 						}
 				}
 
-				local responsesLength = dialogsData[activeDialog]["responses"].len()
+				local responsesLength = dialogsData[dialog]["responses"].len()
 
 				//Controls for choosing a response
 				//Up
@@ -78,36 +74,41 @@
 				}
 				//Accept
 				if(getcon("accept", "press")) {
-						gmData.dialogResponses[activeDialog] <- dialogSelectorPos //Store the current response id.
-						if(!dialogsData[activeDialog]["responses"][dialogSelectorPos].rawin("next")) {
-								activeDialog = null
+						gmData.dialogResponses[dialog] <- dialogSelectorPos //Store the current response id.
+						if(!dialogsData[dialog]["responses"][dialogSelectorPos].rawin("next")) {
+								quitDialog()
 								return
 						}
-						activeDialog = dialogsData[activeDialog]["responses"][dialogSelectorPos]["next"]
+						dialog = dialogsData[dialog]["responses"][dialogSelectorPos]["next"]
 				}
 				//Pause - exit the dialog
-				if(getcon("pause", "press")) activeDialog = null
+				if(getcon("pause", "press")) quitDialog()
 		}
 		else { //The dialog is just text.
 				//Draw navigation arrows under the text
-				if(dialogsData[activeDialog].rawin("back")) { //Draw an arrow pointing back only if the dialog can go back.
+				if(dialogsData[dialog].rawin("back")) { //Draw an arrow pointing back only if the dialog can go back.
 						drawSprite(font, 17, screenW() / 2.5, screenH() / 2 + 15)
 				}
 				drawSprite(font, 16, screenW() / 3.5 * 2, screenH() / 2 + 15)
 
 				//Controls for navigating through dialogs
 				//Left
-				if(getcon("left", "press") && dialogsData[activeDialog].rawin("back")) {
-						activeDialog = dialogsData[activeDialog]["back"]
+				if(getcon("left", "press") && dialogsData[dialog].rawin("back")) {
+						dialog = dialogsData[dialog]["back"]
 				}
 				//Right
 				if(getcon("right", "press")) {
-						gmData.dialogResponses[activeDialog] <- true //Indicate this dialog has been passed.
+						gmData.dialogResponses[dialog] <- true //Indicate this dialog has been passed.
 						//Check if a follow-up dialog is given. If not, close the dialogs.
-						if(dialogsData[activeDialog].rawin("next")) activeDialog = dialogsData[activeDialog]["next"]
-						else activeDialog = null
+						if(dialogsData[dialog].rawin("next")) dialog = dialogsData[dialog]["next"]
+						else quitDialog()
 				}
 		}
 		//Pause (exit the dialogs)
-		if(getcon("pause", "press")) activeDialog = null
+		if(getcon("pause", "press")) quitDialog()
+}
+::quitDialog <- function() {
+		dialogSelectorPos = 0
+		dialog = null
+		if(gvGameOverlay != emptyFunc) resetOverlay()
 }

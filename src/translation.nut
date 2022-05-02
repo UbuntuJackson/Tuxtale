@@ -16,9 +16,9 @@
 
 ::Translation <- class {
 	// Contains currently selected language
-	m_lang="en"
+	m_lang = "en"
 	// Contains translation loaded from .json
-	m_translationData={}
+	m_translationData = {}
 
 
 	/*
@@ -26,15 +26,15 @@
 	* \param lang Language that has to be used
 	*/
 	function setLanguage(lang) {
-		m_lang=lang
-		if(lang=="en") {
-			m_translationData={}
+		m_lang = lang
+		if(lang == "en") {
+			m_translationData = {}
 			return
 		}
-		local langFile="res/lang/"+lang+".json"
+		local langFile = "res/lang/" + lang + ".json"
 		if(!fileExists(langFile))
 			return
-		m_translationData=jsonRead(fileRead(langFile))
+		m_translationData = jsonRead(fileRead(langFile))
 	}
 
 	/*

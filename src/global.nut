@@ -27,6 +27,16 @@
 ::sprTaleTux <- newSprite("res/gfx/Tux/taletuxNL.png", 16, 16, 0, 0, 8, 8)
 ::sprTile <- newSprite("res/gfx/tiles/block.png", 16, 16, 0, 0, 8, 8)
 
+//::px <- 0 //unused
+//::py <- 0 //unused
+::gvCamTarget <- null
+::gvGameMode <- null //Current gamemode
+::gvGameOverlay <- null //Current game overlay
+::gvGameOverlayParam <- null //Current game overlay parameter
+
+//Others
+::emptyFunc <- function() {return}
+
 ::config <- {
 	key = {
 		up = k_up

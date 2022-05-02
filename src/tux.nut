@@ -38,17 +38,17 @@
     w = 16
     h = 16
     
-    constructor(_x, _y, _arr = null){
+    constructor(_x, _y, _arr = null) {
         hspeed = 1
         anim = anStandRight
         nsp = 1
         x = _x
         y = _y
-        w = 0.1
-        h = 0.1
+        w = 7
+        h = 7
     }
 
-    function collision(_x, _y){
+    function collision(_x, _y) {
         foreach(obj in objects){
             if(fabs(_x - obj.x) < w + obj.w && fabs(_y - obj.y) < h + obj.h){
                 return true
@@ -56,28 +56,31 @@
         }
     }
 
-    function run(){
-		if(activeDialog) return updateTux() //If a dialog is active, update Tux without allowing him to move.
+    function run() {
+			if(gvGameOverlay != emptyFunc) return updateTux() //If an overlay is active, update Tux without allowing him to move.
 
-        if(xsort != 0 && ysort != 0){
+        if(xsort != 0 && ysort != 0) {
             diagonal = 0.707
         }
-        else{
+        else {
             diagonal = 1
         }
 
-		if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
-		if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
+				//Update camera position in the game data.
+        gmData.camX += xsort
+        gmData.camY += ysort
 
-		if(getcon("right", "hold")) xsort = (nsp * diagonal)
-		if(getcon("left", "hold")) xsort = (-nsp * diagonal)
-		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
-		if(getcon("down", "hold")) ysort = (nsp * diagonal)
+        if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
+        if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
+
+        if(getcon("right", "hold")) xsort = (nsp * diagonal)
+        if(getcon("left", "hold")) xsort = (-nsp * diagonal)
+        if(getcon("up", "hold")) ysort = (-nsp * diagonal)
+        if(getcon("down", "hold")) ysort = (nsp * diagonal)
 
         if(xsort > 0){
             anim = anWalkRight
             face = 0
-            //queue(next)
         }
         if(xsort < 0){
             anim = anWalkLeft
@@ -117,19 +120,17 @@
             ysort = 0
         }
 
-        x+=xsort
-        y+=ysort
-
-        //print(jsonWrite(objects))
+        x += xsort
+        y += ysort
+				//Update Tux's position in the game data.
+				gmData.posX = x
+				gmData.posY = y
         
         updateTux()
-        //drawSpriteExZ(0, sprite, floor(frame), x - camx, y - camy, 0, flip, 1, 1, 1)
-        //drawText(font, x + 20, y + 20, diagonal.tostring())
-        //drawText(font, 20, 20, cursor.tostring())
     }
 
 	function updateTux() {
 		frame += 0.05
-		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x, y)
+		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
 	}
 }
