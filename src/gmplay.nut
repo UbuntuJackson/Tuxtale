@@ -40,7 +40,9 @@
 
 ::startGame <- function(saveNum = 1) {
 	gmSave = saveNum
-	if(fileExists("save/save" + gmSave + ".json")) gmData = jsonRead(fileRead("save/save" + gmSave + ".json")) //Load game progress from save file, if it exists.
+	if(fileExists("save/save" + gmSave + ".json")) { //Load game progress from save file, if it exists.
+		gmData = mergeTable(gmData, jsonRead(fileRead("save/save" + gmSave + ".json")))
+	}
 	gmPlayer = newActor(Tux, gmData.posX, gmData.posY)
 	gvGameMode = gmPlay
 }
