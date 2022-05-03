@@ -18,75 +18,75 @@
 ::objects <- [] //List for keeping all objects.
 
 ::Tile <- class extends Actor {
-		w = 8
-		h = 8
-		spr = sprTile
-		tile = 0
-		constructor(_x, _y, _arr = null) {
-				x = _x
-				y = _y
-				if(!_arr) return
-				if(_arr.len() >= 1) spr = _arr[0]
-				if(_arr.len() >= 2) tile = _arr[1]
-		}
-		function run() {
-				drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
-		}
+	w = 8
+	h = 8
+	spr = sprTile
+	tile = 0
+	constructor(_x, _y, _arr = null) {
+		x = _x
+		y = _y
+		if(!_arr) return
+		if(_arr.len() >= 1) spr = _arr[0]
+		if(_arr.len() >= 2) tile = _arr[1]
+	}
+	function run() {
+		drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
+	}
 }
 
 ::Object <- class extends Actor {
-		w = 8
-		h = 8
-		spr = sprObjects
-		tile = 0
-		constructor(_x, _y, _arr = null) {
-				x = _x
-				y = _y
-				if(!_arr) return
-				if(_arr.len() >= 1) spr = _arr[0]
-				if(_arr.len() >= 2) tile = _arr[1]
+	w = 8
+	h = 8
+	spr = sprObjects
+	tile = 0
+	constructor(_x, _y, _arr = null) {
+		x = _x
+		y = _y
+		if(!_arr) return
+		if(_arr.len() >= 1) spr = _arr[0]
+		if(_arr.len() >= 2) tile = _arr[1]
+	}
+	function run() {
+		switch(tile) { //Do different actions on update, based on which the current object is.
+			case 0: //Info block
+				draw()
+				break;
+			case 1: //Spawn point
+				break;
+			case 2: //Badguy
+				draw()
+				break;
+			case 3: //Chest
+				draw()
+				break;
+			case 4: //NPC
+				draw()
+				break;
 		}
-		function run() {
-				switch(tile) { //Do different actions on update, based on which the current object is.
-					case 0: //Info block
-						draw()
-						break;
-					case 1: //Spawn point
-						break;
-					case 2: //Badguy
-						draw()
-						break;
-					case 3: //Chest
-						draw()
-						break;
-					case 4: //Goodguy
-						draw()
-						break;
-				}
+	}
+	function draw() {
+		drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
+	}
+	function onCollision() {
+		local text = null
+		switch(tile) { //Do different actions on collision, based on which the current object is.
+			case 0: //Info block
+				text = "Press Space to open dialog"
+				if(keyPress(k_space)) setOverlay(updateDialog, "0")
+				break;
+			case 1: //Spawn point
+				text = "Touching spawn point"
+				break;
+			case 2: //Badguy
+				text = "Touching badguy"
+				break;
+			case 3: //Chest
+				text = "Touching chest"
+				break;
+			case 4: //NPC
+				text = "Touching NPC"
+				break;
 		}
-		function draw() {
-			drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
-		}
-		function onCollision() {
-				local text = null
-				switch(tile) { //Do different actions on collision, based on which the current object is.
-					case 0: //Info block
-						text = "Press Space to open dialog"
-						if(keyPress(k_space)) setOverlay(updateDialog, "0")
-						break;
-					case 1: //Spawn point
-						text = "Touching spawn point"
-						break;
-					case 2: //Badguy
-						text = "Touching badguy"
-						break;
-					case 3: //Chest
-						text = "Touching chest"
-						break;
-					case 4: //Goodguy
-						text = "Touching goodguy (lol)"
-						break;
-				}
-				drawText(font, screenW() / 2 - fontWidth * text.len() / 2, screenH() / 12, text)
-		}
+		drawText(font, screenW() / 2 - fontWidth * text.len() / 2, screenH() / 12, text)
+	}
 }
