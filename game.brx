@@ -18,7 +18,7 @@ donut("src/global.nut");
 donut("src/controls.nut");
 donut("src/tux.nut");
 donut("src/dialogs.nut");
-donut("src/collision.nut");
+donut("src/objects.nut");
 donut("src/menus.nut");
 donut("src/gmmain.nut");
 donut("src/gmplay.nut");

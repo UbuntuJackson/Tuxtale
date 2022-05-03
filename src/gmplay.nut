@@ -19,10 +19,10 @@
 ::gmPlayer <- null //Player 1
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
-	posX = 150 //X pos of first player
-	posY = 150 //Y pos of first player
-	camX = 0 //X pos of the camera
-	camY = 0 //Y pos of the camera
+	posX = 64 //X pos of first player
+	posY = 96 //Y pos of first player
+	camX = -110 //X pos of the camera
+	camY = -30 //Y pos of the camera
 	dialogResponses = {} //Stores all responses from dialogs
 };
 ::gmDataClear <- jsonWrite(gmData); //String copy of game data with all values cleared
@@ -33,7 +33,6 @@
 
 	runActors()
 	if(getcon("pause", "press")) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
-	if(keyPress(k_d)) setOverlay(updateDialog, "0") //TEMPORARY: Loads dialog number 0 by pressing "D" in-game.
 }
 
 //Additional functions for managing the in-game gamemode.

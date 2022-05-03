@@ -59,7 +59,7 @@
 		if(!menu[menu.len() - 1].rawin("back")) return;
 		menu[menu.len() - 1].back();
 	}
-	if(menuBackTimeout > 0) menuBackTimeout--; //Count the current tick in the menu back timeout.
+	if(menuBackTimeout > 0) menuBackTimeout--; //Count the current frame in the menu back timeout.
 }
 ::goToMenu <- function(newMenu) { //Go to another menu.
 	menuSelectorPos = 0;

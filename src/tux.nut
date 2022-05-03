@@ -49,9 +49,15 @@
     }
 
     function collision(_x, _y) {
-        foreach(obj in objects){
-            if(fabs(_x - obj.x) < w + obj.w && fabs(_y - obj.y) < h + obj.h){
+        foreach(tile in tiles) {
+            if(fabs(_x - tile.x) < w + tile.w && fabs(_y - tile.y) < h + tile.h) {
                 return true
+            }
+        }
+        foreach(obj in objects) {
+            if(fabs(_x - obj.x) < w + obj.w && fabs(_y - obj.y) < h + obj.h) {
+                obj.onCollision()
+                return false
             }
         }
     }
@@ -81,33 +87,33 @@
         if(getcon("up", "hold")) ysort = (-nsp * diagonal)
         if(getcon("down", "hold")) ysort = (nsp * diagonal)
 
-        if(xsort > 0){
+        if(xsort > 0) {
             anim = anWalkRight
             face = 0
         }
-        if(xsort < 0){
+        if(xsort < 0) {
             anim = anWalkLeft
             face = 1
         }
-        if(ysort > 0){
+        if(ysort > 0) {
             anim = anWalkDown
             face = 2
         }
-        if(ysort < 0){
+        if(ysort < 0) {
             anim = anWalkUp
             face = 3
         }
 
         if(xsort == 0 && ysort == 0) tuxStand()
 
-        if(collision(x + xsort, y)){
+        if(collision(x + xsort, y)) {
             xsort = 0
-            tuxStand()
+            if(xsort == 0 && ysort == 0) tuxStand()
         }
 
-        if(collision(x, y + ysort)){
+        if(collision(x, y + ysort)) {
             ysort = 0
-            tuxStand()
+            if(xsort == 0 && ysort == 0) tuxStand()
         }
 
         x += xsort

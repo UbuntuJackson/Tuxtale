@@ -16,16 +16,29 @@
 
 ::gmMap <- null //The map that's currently loaded in-game.
 
-::loadMap <- function(pathToMap) { //Load a given map.
+::loadMap <- function(pathToMap) { //Load a given Tiled map.
 	gmMap = jsonRead(fileRead(pathToMap))
+	//Create all tiles.
 	foreach(layer in gmMap["layers"]) {
 		if(!layer.rawin("data") || !layer["visible"]) continue
 		local tileDataIterator = 0;
 		for(local y = 1; y <= layer["height"]; y++) {
 			for(local x = 1; x <= layer["width"]; x++) {
-				if(layer["data"][tileDataIterator] > 0) objects.push(actor[newActor(solid, 16 * x, 16 * y)])
+				if(layer["data"][tileDataIterator] > 0)
+					tiles.push(actor[newActor(Tile, 16 * x, 16 * y, [sprCollision, layer["data"][tileDataIterator] - 1])])
 				tileDataIterator++
 			}
+		}
+	}
+	//Create all objects.
+	local firstGid = 1
+	foreach(tileset in gmMap["tilesets"]) {
+		if(tileset.rawin("name")) if(tileset["name"] == "objects") firstGid = tileset["firstgid"]
+	}
+	foreach(layer in gmMap["layers"]) {
+		if(!layer.rawin("objects") || !layer["visible"]) continue
+		foreach(object in layer["objects"]) {
+			objects.push(actor[newActor(Object, object["x"], object["y"], [sprObjects, object["gid"] - firstGid])])
 		}
 	}
 }
