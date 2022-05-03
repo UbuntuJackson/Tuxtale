@@ -14,9 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-//Define the main menu gamemode.
-::gmMenu <- function() {
-	drawSprite(sprChalk, 0, 0, 0)
-	updateMenu(meMain)
-	//Backgrounds, as well as other resources, which are unique to the main menus, should be drawn here.
+//Overlay management
+
+::setOverlay <- function(overlay, param) {
+	gvGameOverlay = overlay
+	gvGameOverlayParam = param
+}
+
+::resetOverlay <- function() {
+	gvGameOverlay = emptyFunc
+	gvGameOverlayParam = null
 }

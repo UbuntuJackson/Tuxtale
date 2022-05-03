@@ -15,15 +15,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Game data
+::gmSave <- null //The id of the save file currently used
 ::gmPlayer <- null //Player 1
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
-	posX = 150 //X pos of first player
-	posY = 150 //Y pos of first player
+	posX = 100 //X pos of first player
+	posY = 100 //Y pos of first player
 	camX = 0 //X pos of the camera
 	camY = 0 //Y pos of the camera
-    ux = 1000
-    uy = 1000
 	dialogResponses = {} //Stores all responses from dialogs
 };
 ::gmDataClear <- jsonWrite(gmData); //String copy of game data with all values cleared
@@ -32,35 +31,32 @@
 ::gmPlay <- function() {
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
 
-    /*gmData.camX = x - screenW()/2
-    gmData.camY = y - screenH()/2
-
-    if(gmData.camX > gmData.ux) gmData.camX = gmData.ux
-	if(gmData.camX < 0) gmData.camX = 0
-	if(gmData.camY > gmData.uy) gmData.camY = gmData.uy
-	if(gmData.camY < 0) gmData.camY = 0*/
-
 	runActors()
-	if(getcon("pause", "press")) quitGame() //Pressing the Pause key leaves the game.
-	if(keyPress(k_d)) loadDialog(0) //TEMPORARY: Loads dialog number 0 by pressing "D" in-game.
+	if(getcon("pause", "press")) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
+	if(keyPress(k_d)) setOverlay(updateDialog, "0") //TEMPORARY: Loads dialog number 0 by pressing "D" in-game.
 }
 
 //Additional functions for managing the in-game gamemode.
 
-::newGame <- function() {
-	load_map(map_2)
+::startGame <- function(saveNum = 1) {
+	gmSave = saveNum
+	if(fileExists("save/save" + gmSave + ".json")) { //Load game progress from save file, if it exists.
+		gmData = mergeTable(gmData, jsonRead(fileRead("save/save" + gmSave + ".json")))
+	}
+	loadMap("res/map/test.json") //Load the map
+	gmPlayer = newActor(Tux, gmData.posX, gmData.posY) //Define the player (Tux)
 	gvGameMode = gmPlay
 }
 
-//::saveGame <- function() {
-//
-//}
+::saveGame <- function() {
+	fileWrite("save/save" + gmSave + ".json", jsonWrite(gmData)) //Save game progress to a save file.
+}
 
 ::quitGame <- function() {
 	gvGameMode = gmMenu
-	gmData = jsonRead(gmDataClear)
+	saveGame()
+	gmData = jsonRead(gmDataClear) //Reset game progress to default values.
 	deleteActor(gmPlayer)
 	gmPlayer = null
+	gmSave = null
 }
-
-	

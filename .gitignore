@@ -1,3 +1,6 @@
 log.txt
 brux-nightly
 *.lnk
+config.json
+save/*
+!save/delete.me
