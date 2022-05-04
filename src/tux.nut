@@ -49,12 +49,12 @@
 	}
 
 	function collision(_x, _y) {
-		foreach(tile in tiles) {
+		foreach(tile in gmMap.tiles) {
 			if(fabs(_x - tile.x) < w + tile.w && fabs(_y - tile.y) < h + tile.h) {
 				return true
 			}
 		}
-		foreach(obj in objects) {
+		foreach(obj in gmMap.objects) {
 			if(fabs(_x - obj.x) < w + obj.w && fabs(_y - obj.y) < h + obj.h) {
 				obj.onCollision()
 				return obj.solid

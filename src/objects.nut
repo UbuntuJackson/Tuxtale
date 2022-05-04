@@ -14,9 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-::tiles <- [] //List for keeping all tiles.
-::objects <- [] //List for keeping all objects.
-
 ::Tile <- class extends Actor {
 	w = 8
 	h = 8

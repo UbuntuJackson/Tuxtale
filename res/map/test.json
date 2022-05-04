@@ -24,6 +24,12 @@
                  "height":16,
                  "id":2,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"solid",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":false,
@@ -36,6 +42,12 @@
                  "height":16,
                  "id":4,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"solid",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -51,8 +63,8 @@
                  "properties":[
                         {
                          "name":"solid",
-                         "type":"string",
-                         "value":"1"
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"",
@@ -69,8 +81,8 @@
                  "properties":[
                         {
                          "name":"solid",
-                         "type":"string",
-                         "value":"1"
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"",
@@ -87,8 +99,8 @@
                  "properties":[
                         {
                          "name":"solid",
-                         "type":"string",
-                         "value":"1"
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"",

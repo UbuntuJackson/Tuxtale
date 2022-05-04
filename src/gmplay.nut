@@ -16,9 +16,11 @@
 
 //Game data
 ::gmSave <- null //The id of the save file currently used
+::gmMap <- null //The map that's currently loaded
 ::gmPlayer <- null //Player 1
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
+	map = "test.json" //The map to be loaded
 	posX = 64 //X pos of first player
 	posY = 96 //Y pos of first player
 	camX = -110 //X pos of the camera
@@ -42,7 +44,7 @@
 	if(fileExists("save/save" + gmSave + ".json")) { //Load game progress from save file, if it exists.
 		gmData = mergeTable(gmData, jsonRead(fileRead("save/save" + gmSave + ".json")))
 	}
-	loadMap("res/map/test.json") //Load the map
+	gmMap = Map("res/map/" + gmData.map) //Load the current map
 	gmPlayer = newActor(Tux, gmData.posX, gmData.posY) //Define the player (Tux)
 	gvGameMode = gmPlay
 }
@@ -57,5 +59,6 @@
 	gmData = jsonRead(gmDataClear) //Reset game progress to default values.
 	deleteActor(gmPlayer)
 	gmPlayer = null
+	gmMap = null
 	gmSave = null
 }
