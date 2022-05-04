@@ -33,12 +33,22 @@
 	//Create all objects.
 	local firstGid = 1
 	foreach(tileset in gmMap["tilesets"]) {
-		if(tileset.rawin("name")) if(tileset["name"] == "objects") firstGid = tileset["firstgid"]
+		if(tileset.rawin("name")) if(tileset["name"] == "objects") {
+			firstGid = tileset["firstgid"]
+			break
+		}
 	}
 	foreach(layer in gmMap["layers"]) {
 		if(!layer.rawin("objects") || !layer["visible"]) continue
 		foreach(object in layer["objects"]) {
-			objects.push(actor[newActor(Object, object["x"], object["y"], [sprObjects, object["gid"] - firstGid])])
+			local solid = false
+			if(object.rawin("properties")) foreach(property in object["properties"]) {
+				if(property["name"] == "solid") {
+					solid = property["value"].tointeger()
+					break
+				}
+			}
+			objects.push(actor[newActor(Object, object["x"], object["y"], [sprObjects, object["gid"] - firstGid, solid, object["visible"]])])
 		}
 	}
 }

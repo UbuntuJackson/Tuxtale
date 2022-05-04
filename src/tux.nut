@@ -57,7 +57,7 @@
 		foreach(obj in objects) {
 			if(fabs(_x - obj.x) < w + obj.w && fabs(_y - obj.y) < h + obj.h) {
 				obj.onCollision()
-				return false
+				return obj.solid
 			}
 		}
 	}

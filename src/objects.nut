@@ -39,30 +39,31 @@
 	h = 8
 	spr = sprObjects
 	tile = 0
+	solid = false
+	visible = true
 	constructor(_x, _y, _arr = null) {
 		x = _x
 		y = _y
 		if(!_arr) return
 		if(_arr.len() >= 1) spr = _arr[0]
 		if(_arr.len() >= 2) tile = _arr[1]
+		if(_arr.len() >= 3) solid = _arr[2]
+		if(_arr.len() >= 4) visible = _arr[3]
 	}
 	function run() {
-		switch(tile) { //Do different actions on update, based on which the current object is.
-			case 0: //Info block
-				draw()
-				break;
-			case 1: //Spawn point
-				break;
-			case 2: //Badguy
-				draw()
-				break;
-			case 3: //Chest
-				draw()
-				break;
-			case 4: //NPC
-				draw()
-				break;
-		}
+		if(visible) draw()
+		// switch(tile) { //Do different actions on update, based on which the current object is.
+		// 	case 0: //Info block
+		// 		break;
+		// 	case 1: //Spawn point
+		// 		break;
+		// 	case 2: //Badguy
+		// 		break;
+		// 	case 3: //Chest
+		// 		break;
+		// 	case 4: //NPC
+		// 		break;
+		// }
 	}
 	function draw() {
 		drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)

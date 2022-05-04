@@ -32,7 +32,7 @@
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
 
 	runActors()
-	if(getcon("pause", "press")) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
+	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
 }
 
 //Additional functions for managing the in-game gamemode.
