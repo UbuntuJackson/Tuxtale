@@ -32,6 +32,12 @@
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
 
 	runActors()
+	/*if(gmPlayer){
+		gvCamTarget = gmPlayer
+		gmData.camX += gvCamTarget.xsort
+		gmData.camY += gvCamTarget.ysort
+	}*/
+
 	if(getcon("pause", "press")) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
 }
 
