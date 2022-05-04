@@ -19,15 +19,19 @@
 	h = 8
 	spr = sprTile
 	tile = 0
+	solid = true
+	visible = true
 	constructor(_x, _y, _arr = null) {
 		x = _x
 		y = _y
 		if(!_arr) return
 		if(_arr.len() >= 1) spr = _arr[0]
 		if(_arr.len() >= 2) tile = _arr[1]
+		if(_arr.len() >= 3) solid = _arr[2]
+		if(_arr.len() >= 4) visible = _arr[3]
 	}
 	function run() {
-		drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
+		if(visible) drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
 	}
 }
 

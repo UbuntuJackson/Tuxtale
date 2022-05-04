@@ -51,7 +51,7 @@
 	function collision(_x, _y) {
 		foreach(tile in gmMap.tiles) {
 			if(fabs(_x - tile.x) < w + tile.w && fabs(_y - tile.y) < h + tile.h) {
-				return true
+				return tile.solid
 			}
 		}
 		foreach(obj in gmMap.objects) {
