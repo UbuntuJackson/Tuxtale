@@ -37,6 +37,7 @@ gvTranslation.setLanguage(config.language)
 setFPS(120)
 setResolution(400, 240)
 setWindowTitle("Tuxtale [PROTOTYPE]")
+setWindowIcon("icon.png")
 
 //Set fullscreen according to preference in config
 if(config.fullscreen) toggleFullscreen()
