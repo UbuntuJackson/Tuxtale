@@ -64,6 +64,8 @@
 		// 		break;
 		// 	case 4: //NPC
 		// 		break;
+		// 	case 6: //Door
+		// 		break;
 		// }
 	}
 	function draw() {
@@ -87,6 +89,9 @@
 				break;
 			case 4: //NPC
 				text = "Touching NPC"
+				break;
+			case 5: //NPC
+				text = "Touching Door"
 				break;
 		}
 		drawText(font, screenW() / 2 - fontWidth * text.len() / 2, screenH() / 12, text)
