@@ -64,7 +64,7 @@
 		// 		break;
 		// 	case 4: //NPC
 		// 		break;
-		// 	case 6: //Door
+		// 	case 5: //Door
 		// 		break;
 		// }
 	}
@@ -90,7 +90,7 @@
 			case 4: //NPC
 				text = "Touching NPC"
 				break;
-			case 5: //NPC
+			case 5: //Door
 				text = "Touching Door"
 				break;
 		}

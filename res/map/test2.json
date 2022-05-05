@@ -88,7 +88,7 @@
  "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -120,11 +120,11 @@
         {
          "columns":20,
          "firstgid":33,
-         "image":"..\/gfx\/tiles\/Kelvinstatics.png",
+         "image":"..\/gfx\/tiles\/statics.png",
          "imageheight":544,
          "imagewidth":320,
          "margin":0,
-         "name":"Kelvinstatics",
+         "name":"statics",
          "spacing":0,
          "tilecount":680,
          "tileheight":16,
@@ -132,6 +132,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":50
 }
