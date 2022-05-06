@@ -79,7 +79,7 @@
 								quitDialog()
 								return
 						}
-						dialog = dialogsData[dialog]["responses"][dialogSelectorPos]["next"]
+						goToDialog(dialogsData[dialog]["responses"][dialogSelectorPos]["next"])
 				}
 				//Pause - exit the dialog
 				if(getcon("pause", "press")) quitDialog()
@@ -94,18 +94,22 @@
 				//Controls for navigating through dialogs
 				//Left
 				if(getcon("left", "press") && dialogsData[dialog].rawin("back")) {
-						dialog = dialogsData[dialog]["back"]
+						goToDialog(dialogsData[dialog]["back"])
 				}
 				//Right
 				if(getcon("right", "press")) {
 						gmData.dialogResponses[dialog] <- true //Indicate this dialog has been passed.
 						//Check if a follow-up dialog is given. If not, close the dialogs.
-						if(dialogsData[dialog].rawin("next")) dialog = dialogsData[dialog]["next"]
+						if(dialogsData[dialog].rawin("next")) goToDialog(dialogsData[dialog]["next"])
 						else quitDialog()
 				}
 		}
 		//Pause (exit the dialogs)
 		if(getcon("pause", "press")) quitDialog()
+}
+::goToDialog <- function(newDialog) {
+	dialogSelectorPos = 0
+	dialog = newDialog
 }
 ::quitDialog <- function() {
 		dialogSelectorPos = 0
