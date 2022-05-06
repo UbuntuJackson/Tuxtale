@@ -53,8 +53,8 @@
 			//Iterate through all objects in a layer and create them accordingly with their IDs.
 			foreach(object in layer["objects"]) {
 				local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID].
-				objects.push(actor[newActor(Object, object["x"], object["y"], [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
-				if(getProperty(object, "spawnpoint") && !spawnpoint) spawnpoint = {"x": object["x"], "y": object["y"]} //If that's the first object with the property "spawnpoint" set to true, set it as the current spawnpoint.
+				objects.push(actor[newActor(Object, object["x"] + 16, object["y"], [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+				if(getProperty(object, "spawnpoint") && !spawnpoint) spawnpoint = {"x": object["x"] + 16, "y": object["y"]} //If that's the first object with the property "spawnpoint" set to true, set it as the current spawnpoint.
 			}
 		}
 	}
