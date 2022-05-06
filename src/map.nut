@@ -15,52 +15,63 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ::Map <- class {
-	path = "res/map/test.json" //Path to the map
+	path = null //Path to the map
 	map = null //Stores the loaded map file
-	tiles = [] //List for keeping all tiles in a map.
-	objects = [] //List for keeping all objects in a map.
+	tiles = null //List for keeping all tiles in a map.
+	objects = null //List for keeping all objects in a map.
+	spawnpoint = null //The first found spawnpoint in the map.
+
 	constructor(_path = null) {
+		//Set all class variables to their initial values.
+		path = "res/map/test.json"
+		tiles = []
+		objects = []
+		//If a path to a map is given, load it.
 		if(_path) path = _path
 		map = jsonRead(fileRead(path))
-		loadMap()
 	}
-	function loadMap() { //Load the given Tiled map.
+	function load() { //Load the given Tiled map.
 		//Create all tiles.
 		foreach(layer in map["layers"]) {
 			if(!layer.rawin("data")) continue
 			local tileDataIterator = 0;
+			//Iterate through all tiles in a layer and create them accordingly with their IDs.
 			for(local y = 1; y <= layer["height"]; y++) {
 				for(local x = 1; x <= layer["width"]; x++) {
-					if(layer["data"][tileDataIterator] > 0)
-						tiles.push(actor[newActor(Tile, 16 * x, 16 * y, [sprCollision, layer["data"][tileDataIterator] - 1, !getProperty(layer, "unsolid"), layer["visible"]])])
+					local tileId = layer["data"][tileDataIterator]
+					if(tileId > 0) {
+						local tilesetData = getTileset(tileId) //Structure: [tileset, firstGID].
+						tiles.push(actor[newActor(Tile, 16 * x, 16 * y, [tilesetData[0], tileId - tilesetData[1], !getProperty(layer, "unsolid"), layer["visible"]])])
+					}
 					tileDataIterator++
 				}
 			}
 		}
 		//Create all objects.
-		local firstGid = getFirstGid("objects")
 		foreach(layer in map["layers"]) {
 			if(!layer.rawin("objects")) continue
+			//Iterate through all objects in a layer and create them accordingly with their IDs.
 			foreach(object in layer["objects"]) {
-				objects.push(actor[newActor(Object, object["x"], object["y"], [sprObjects, object["gid"] - firstGid, getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+				local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID].
+				objects.push(actor[newActor(Object, object["x"], object["y"], [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+				if(getProperty(object, "spawnpoint") && !spawnpoint) spawnpoint = {"x": object["x"], "y": object["y"]} //If that's the first object with the property "spawnpoint" set to true, set it as the current spawnpoint.
 			}
 		}
 	}
 	//Functions to help utilize maps.
 	function getProperty(obj, propertyName) { //Get a specified Tiled property in an object, if the property exists.
 		if(obj.rawin("properties")) foreach(property in obj["properties"]) {
-			if(property["name"] == propertyName) {
-				return property["value"]
-			}
+			if(property["name"] == propertyName) return property["value"]
 		}
 		return null
 	}
-	function getFirstGid(tilesetName) {
-		foreach(tileset in map["tilesets"]) {
-			if(tileset.rawin("name")) if(tileset["name"] == tilesetName) {
-				return tileset["firstgid"]
-			}
+	function getTileset(tileGID) { //Get which tileset a tile is a part of, according to which firstGID it falls into. Returns the tileset ID and its firstGID.
+		//For each tileset, check if the current tile ID is within its tilesetGID and isn't going over its tile count.
+		for(local tileset = 0; tileset < map["tilesets"].len(); tileset++) {
+			local tilesetGID = map["tilesets"][tileset]["firstgid"]
+			local tilesetTileCount = map["tilesets"][tileset]["tilecount"]
+			if(tileGID >= tilesetGID && tileGID < tilesetTileCount + tilesetGID) return [findSprite(fileFromPath(map["tilesets"][tileset]["image"])), tilesetGID]
 		}
-		return 0
+		return [null, 0]
 	}
 }

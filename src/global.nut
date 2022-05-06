@@ -25,9 +25,11 @@
 ::sprChalk <- newSprite("res/gfx/BG/menu/chalk.png", 400, 240, 0, 0, 0, 0)
 ::sprTaleTux <- newSprite("res/gfx/Tux/taletuxNL.png", 16, 16, 0, 0, 8, 8)
 ::sprTile <- newSprite("res/gfx/tiles/block.png", 16, 16, 0, 0, 8, 8)
-//::sprBricks <- newSprite("res/gfx/tiles/bricks.png", 16, 16, 0, 0, 8, 8)
+::sprBricks <- newSprite("res/gfx/tiles/bricks.png", 16, 16, 0, 0, 8, 8)
 ::sprCollision <- newSprite("res/gfx/tiles/collision.png", 16, 16, 0, 0, 8, 8)
 ::sprObjects <- newSprite("res/gfx/tiles/objects.png", 16, 16, 0, 0, 8, 8)
+::sprDoors <- newSprite("res/gfx/tiles/doors.png", 16, 16, 0, 0, 8, 8)
+::sprStatics <- newSprite("res/gfx/tiles/statics.png", 16, 16, 0, 0, 8, 8)
 
 //Game management
 ::gvCamTarget <- null
@@ -37,6 +39,7 @@
 
 //Others
 ::emptyFunc <- function() {return}
+::actorsClear <- clone(actor)
 
 ::config <- {
 	key = {

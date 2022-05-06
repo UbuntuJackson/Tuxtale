@@ -20,14 +20,14 @@
 ::gmPlayer <- null //Player 1
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
-	map = "test.json" //The map to be loaded
-	posX = 64 //X pos of first player
-	posY = 96 //Y pos of first player
-	camX = -110 //X pos of the camera
-	camY = -30 //Y pos of the camera
+	map = "test2.json" //The map to be loaded
+	posX = 64 //X pos of first player (default value, if no spawnpoint is found)
+	posY = 96 //Y pos of first player (default value, if no spawnpoint is found)
+	camX = 64 - 180 //X pos of the camera (default value, if no spawnpoint is found)
+	camY = 96 - 130 //Y pos of the camera (default value, if no spawnpoint is found)
 	dialogResponses = {} //Stores all responses from dialogs
 };
-::gmDataClear <- jsonWrite(gmData); //String copy of game data with all values cleared
+::gmDataClear <- clone(gmData); //Copy of game data with all values cleared
 
 //Define the in-game gamemode.
 ::gmPlay <- function() {
@@ -40,12 +40,21 @@
 //Additional functions for managing the in-game gamemode.
 
 ::startGame <- function(saveNum = 1) {
+	local saveExists = false //Indicates if the current save file wasn't empty.
 	gmSave = saveNum
 	if(fileExists("save/save" + gmSave + ".json")) { //Load game progress from save file, if it exists.
 		gmData = mergeTable(gmData, jsonRead(fileRead("save/save" + gmSave + ".json")))
+		saveExists = true
 	}
-	gmMap = Map("res/map/" + gmData.map) //Load the current map
-	gmPlayer = newActor(Tux, gmData.posX, gmData.posY) //Define the player (Tux)
+	gmMap = Map("res/map/" + gmData.map) //Create a Map instance for the current map
+	gmMap.load() //Load the current map
+	if(gmMap.spawnpoint && !saveExists) { //If a spawnpoint exists in the current map and an empty save is being entered, use it.
+		gmData.posX = gmMap.spawnpoint["x"]
+		gmData.posY = gmMap.spawnpoint["y"]
+		gmData.camX = gmData.posX - 180
+		gmData.camY = gmData.posY - 130
+	}
+	gmPlayer = actor[newActor(Tux, gmData.posX, gmData.posY)] //Define the player (Tux)
 	gvGameMode = gmPlay
 }
 
@@ -56,8 +65,8 @@
 ::quitGame <- function() {
 	gvGameMode = gmMenu
 	saveGame()
-	gmData = jsonRead(gmDataClear) //Reset game progress to default values.
-	deleteActor(gmPlayer)
+	gmData = clone(gmDataClear) //Reset game progress to default values.
+	actor = clone(actorsClear) //Clear all actors.
 	gmPlayer = null
 	gmMap = null
 	gmSave = null

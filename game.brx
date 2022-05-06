@@ -25,6 +25,7 @@ donut("src/gmplay.nut");
 donut("src/gmoverlay.nut");
 donut("src/map.nut");
 donut("src/translation.nut");
+donut("src/util.nut");
 donut("src/external/util.nut")
 
 //Load config from file, if available

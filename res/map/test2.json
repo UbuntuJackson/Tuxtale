@@ -65,6 +65,12 @@
                  "height":16,
                  "id":11,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"spawnpoint",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,

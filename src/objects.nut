@@ -25,7 +25,7 @@
 		x = _x
 		y = _y
 		if(!_arr) return
-		if(_arr.len() >= 1) spr = _arr[0]
+		if(_arr.len() >= 1) if(_arr[0]) spr = _arr[0]
 		if(_arr.len() >= 2) tile = _arr[1]
 		if(_arr.len() >= 3) solid = _arr[2]
 		if(_arr.len() >= 4) visible = _arr[3]

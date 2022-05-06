@@ -44,21 +44,21 @@
          "name":"solidObj",
          "objects":[
                 {
-                 "gid":18,
+                 "gid":21,
                  "height":16,
-                 "id":2,
+                 "id":15,
                  "name":"",
                  "properties":[
                         {
                          "name":"solid",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":368,
+                 "x":480,
                  "y":272
                 }],
          "opacity":1,
@@ -79,13 +79,18 @@
          "name":"unsolidObj",
          "objects":[
                 {
-                 "gid":21,
+                 "gid":18,
                  "height":16,
-                 "id":14,
+                 "id":16,
                  "name":"",
                  "properties":[
                         {
                          "name":"solid",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"spawnpoint",
                          "type":"bool",
                          "value":true
                         }],
@@ -93,7 +98,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":480,
+                 "x":368,
                  "y":272
                 }],
          "opacity":1,
@@ -109,7 +114,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":15,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.2",
