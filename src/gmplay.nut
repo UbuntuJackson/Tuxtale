@@ -32,8 +32,11 @@
 //Define the in-game gamemode.
 ::gmPlay <- function() {
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
-
 	runActors()
+	gmData.camX += gmPlayer.xsort
+	gmData.camY += gmPlayer.ysort
+	gmData.posX = gmPlayer.x
+	gmData.posY = gmPlayer.y
 	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
 }
 
