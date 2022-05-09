@@ -23,7 +23,7 @@
 
 //Sprites
 ::sprChalk <- newSprite("res/gfx/BG/menu/chalk.png", 400, 240, 0, 0, 0, 0)
-::sprTaleTux <- newSprite("res/gfx/Tux/taletuxNL.png", 16, 16, 0, 0, 8, 8)
+::sprTaleTux <- newSprite("res/gfx/Tux/taletuxCL.png", 16, 16, 0, 0, 8, 8)
 ::sprTile <- newSprite("res/gfx/tiles/block.png", 16, 16, 0, 0, 8, 8)
 ::sprBricks <- newSprite("res/gfx/tiles/bricks.png", 16, 16, 0, 0, 8, 8)
 ::sprCollision <- newSprite("res/gfx/tiles/collision.png", 16, 16, 0, 0, 8, 8)
