@@ -39,6 +39,7 @@
 	gmData.posY = gmPlayer.y
 	gmData.camX += gmPlayer.xsort
 	gmData.camY += gmPlayer.ysort
+	//gmPlayer.xsort = 1
 
 	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
 }
