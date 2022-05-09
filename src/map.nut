@@ -19,6 +19,7 @@
 	map = null //Stores the loaded map file
 	tiles = [] //List for keeping all tiles in a map.
 	objects = [] //List for keeping all objects in a map.
+	bullets = []
 	constructor(_path = null) {
 		if(_path) path = _path
 		map = jsonRead(fileRead(path))
@@ -26,6 +27,8 @@
 	}
 	function loadMap() { //Load the given Tiled map.
 		//Create all tiles.
+		objects.push(actor[newActor(Opponent2, 200, 200, [1000])])
+		//bullets.push(actor[newActor(Bullet, 200, 200, [1, 1])])
 		foreach(layer in map["layers"]) {
 			if(!layer.rawin("data")) continue
 			local tileDataIterator = 0;
