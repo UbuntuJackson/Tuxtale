@@ -75,10 +75,6 @@
 			diagonal = 1
 		}
 
-		//Update camera position in the game data.
-		gmData.camX += xsort
-		gmData.camY += ysort
-
 		if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
 		if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
 
@@ -118,9 +114,6 @@
 
 		x += xsort
 		y += ysort
-		//Update Tux's position in the game data.
-		gmData.posX = x
-		gmData.posY = y
 
 		updateTux()
 	}
