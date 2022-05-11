@@ -50,7 +50,7 @@
 		menuSelectorPos++;
 	}
 	//Accept
-	if(getcon("accept", "press")) {
+	if(getcon("accept", "press") || (mousePress(0) && config.showcursor && cursorItem == menuSelectorPos)) {
 		if(!menu[menuSelectorPos].rawin("func")) return;
 		menu[menuSelectorPos].func();
 	}
@@ -60,6 +60,8 @@
 		menu[menu.len() - 1].back();
 	}
 	if(menuBackTimeout > 0) menuBackTimeout--; //Count the current frame in the menu back timeout.
+	
+	updateCursor() //Update the mouse cursor.
 }
 ::goToMenu <- function(newMenu) { //Go to another menu.
 	menuSelectorPos = 0;
@@ -144,11 +146,15 @@
 			meLanguage.push(
 			{
 				name = function() {return gvTranslation.tr("Back")},
-				back = function() {meLanguage = []; goToMenu(meOptions)},
-				func = function() {meLanguage = []; goToMenu(meOptions)}
+				func = function() {meLanguage = []; goToMenu(meOptions)},
+				back = function() {meLanguage = []; goToMenu(meOptions)}
 			})
 			goToMenu(meLanguage)
 		}
+	},
+	{
+		name = function() {return gvTranslation.tr("Cursor") + ": " + (config.showcursor ? gvTranslation.tr("Shown") : gvTranslation.tr("Hidden"))},
+		func = function() {config.showcursor = !config.showcursor; fileWrite("config.json", jsonWrite(config))}
 	},
 	{
 		name = function() {return gvTranslation.tr("Back")},
