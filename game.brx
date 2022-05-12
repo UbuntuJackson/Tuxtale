@@ -33,7 +33,7 @@ donut("src/external/util.nut")
 if(fileExists("config.json")) config = mergeTable(config, jsonRead(fileRead("config.json")))
 
 //Load translations, according to the current language, set in config
-gvTranslation.setLanguage(config.language)
+translation.setLanguage(config.language)
 
 //Set up the window
 setFPS(120)
