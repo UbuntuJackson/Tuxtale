@@ -20,7 +20,7 @@
 ::gmPlayer <- null //Player 1
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
-	map = "test.json" //The map to be loaded
+	map = "test2.json" //The map to be loaded
 	posX = 64 //X pos of first player (default value, if no spawnpoint is found)
 	posY = 96 //Y pos of first player (default value, if no spawnpoint is found)
 	camX = 64 - 180 //X pos of the camera (default value, if no spawnpoint is found)
@@ -32,13 +32,13 @@
 //Define the in-game gamemode.
 ::gmPlay <- function() {
 	if(gvGameMode != gmPlay) return //If not in-game, do not do anything.
-
 	runActors()
 	//Update position and camera data of the player in game data.
 	gmData.posX = gmPlayer.x
 	gmData.posY = gmPlayer.y
 	gmData.camX += gmPlayer.xsort
 	gmData.camY += gmPlayer.ysort
+	gmPlayer.updateTux()
 
 	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
 }

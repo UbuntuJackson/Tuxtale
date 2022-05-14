@@ -121,7 +121,7 @@
 		x += xsort
 		y += ysort
 
-		updateTux()
+		//updateTux()
 	}
 
 	function tuxStand() {
