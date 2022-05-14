@@ -110,28 +110,20 @@
 		
 
 		if(xsort > 0) {
-			if(!(getcon("up", "hold") || getcon("down", "hold")) || collision(x + xsort, y)){
-				anim = anWalkRight
-				face = 0
-			}
+			anim = anWalkRight
+			face = 0
 		}
 		if(xsort < 0) {
-			if(!(getcon("up", "hold") || getcon("down", "hold")) || collision(x + xsort, y)){
-				anim = anWalkLeft
-				face = 1
-			}
+			anim = anWalkLeft
+			face = 1
 		}
 		if(ysort > 0) {
-			if(!(getcon("right", "hold") || getcon("left", "hold")) || collision(x, y + ysort)){
-				anim = anWalkDown
-				face = 2
-			}
+			anim = anWalkDown
+			face = 2
 		}
 		if(ysort < 0) {
-			if(!(getcon("right", "hold") || getcon("left", "hold")) || collision(x, y + ysort)){
-				anim = anWalkUp
-				face = 3
-			}
+			anim = anWalkUp
+			face = 3
 		}
 
 		if(xsort == 0 && ysort == 0) tuxStand()
