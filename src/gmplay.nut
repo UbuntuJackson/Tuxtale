@@ -18,6 +18,7 @@
 ::gmSave <- null //The id of the save file currently used
 ::gmMap <- null //The map that's currently loaded
 ::gmPlayer <- null //Player 1
+::gmInactiveActors <- []
 //::gmPlayer2 <- null //Player 2
 ::gmData <- {
 	map = "test2.json" //The map to be loaded
@@ -41,6 +42,18 @@
 	gmData.camY += gmPlayer.ysort
 
 	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
+}
+
+::startBattle <- function(enemy){
+	local text = ""
+	gmInactiveActors = clone(actor)
+	actor = clone(gmInactiveActors)
+	text = enemy._typeof()
+	drawText(font, screenW() / 2 - fontWidth * text.len() / 2, screenH() / 12, text)
+}
+
+::gmBattle <- function(){
+
 }
 
 //Additional functions for managing the in-game gamemode.

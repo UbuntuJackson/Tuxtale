@@ -17,10 +17,10 @@
 ::Tux <- class extends Actor {
 	frame = 0.0
 	anim = [] //Animation frame delimiters: [start, end, speed]
-	anStandRight = [0.0, 0.0, "standright"]
-	anStandLeft = [12.0, 12.0, "standleft"]
-	anStandUp = [4.0, 4.0, "standup"]
-	anStandDown = [8.0, 8.0, "standdown"]
+	anStandRight = [1.0, 1.0, "standright"]
+	anStandLeft = [13.0, 13.0, "standleft"]
+	anStandUp = [5.0, 5.0, "standup"]
+	anStandDown = [9.0, 9.0, "standdown"]
 	anWalkRight = [0.0, 3.0, "walkright"]
 	anWalkDown = [8.0, 11.0, "walkdown"]
 	anWalkUp = [4.0, 7.0, "walkup"]
@@ -40,8 +40,9 @@
 
 	constructor(_x, _y, _arr = null) {
 		hspeed = 1
+		vspeed = 1
 		anim = anStandRight
-		nsp = 1
+		nsp = 1.5
 		x = _x
 		y = _y
 		w = 7
@@ -83,6 +84,11 @@
 		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
 		if(getcon("down", "hold")) ysort = (nsp * diagonal)
 
+		if(getcon("right", "press")) frame = 0
+		if(getcon("left", "press")) frame = 0
+		if(getcon("up", "press")) frame = 0
+		if(getcon("down", "press")) frame = 0
+
 		if(xsort > 0) {
 			anim = anWalkRight
 			face = 0
@@ -112,12 +118,18 @@
 			if(xsort == 0 && ysort == 0) tuxStand()
 		}
 
+		if(collision(x + xsort, y + ysort)){
+			ysort = 0
+			xsort = 0
+			if(xsort == 0 && ysort == 0) tuxStand()
+		}
+
 		x += xsort
 		y += ysort
 
 		updateTux()
 	}
-
+	
 	function tuxStand() {
 		  switch(face) {
 		  	case 0:
@@ -136,7 +148,7 @@
 	}
 
 	function updateTux() {
-		frame += 0.05
+		frame += 0.1
 		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
 	}
 }
