@@ -19,6 +19,7 @@
 	map = null //Stores the loaded map file
 	tiles = null //List for keeping all tiles in a map.
 	objects = null //List for keeping all objects in a map.
+	enemies = null
 	spawnpoint = null //The first found spawnpoint in the map.
 
 	constructor(_path = null) {
@@ -26,12 +27,15 @@
 		path = "res/map/test.json"
 		tiles = []
 		objects = []
+		enemies = []
 		//If a path to a map is given, load it.
 		if(_path) path = _path
 		map = jsonRead(fileRead(path))
 	}
 	function load() { //Load the given Tiled map.
 		//Create all tiles.
+		//local firstgid = map["tilesets"][1]["firstgid"]
+
 		foreach(layer in map["layers"]) {
 			if(!layer.rawin("data")) continue
 			local tileDataIterator = 0;
@@ -49,12 +53,13 @@
 		}
 		//Create all objects.
 		foreach(layer in map["layers"]) {
-			if(!layer.rawin("objects")) continue
-			//Iterate through all objects in a layer and create them accordingly with their IDs.
-			foreach(object in layer["objects"]) {
-				local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID].
-				objects.push(actor[newActor(Object, object["x"] + 16, object["y"], [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
-				if(getProperty(object, "spawnpoint") && !spawnpoint) spawnpoint = {"x": object["x"] + 16, "y": object["y"]} //If that's the first object with the property "spawnpoint" set to true, set it as the current spawnpoint.
+			if(layer.rawin("objects")){
+				//Iterate through all objects in a layer and create them accordingly with their IDs.
+				foreach(object in layer["objects"]) {
+					local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID].
+					objects.push(actor[newActor(Object, object["x"] + 16, object["y"], [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+					if(getProperty(object, "spawnpoint") && !spawnpoint) spawnpoint = {"x": object["x"] + 16, "y": object["y"]} //If that's the first object with the property "spawnpoint" set to true, set it as the current spawnpoint.
+				}
 			}
 		}
 	}

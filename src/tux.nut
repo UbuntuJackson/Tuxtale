@@ -37,6 +37,7 @@
 	shape = 0
 	w = 16
 	h = 16
+	step = 0
 
 	constructor(_x, _y, _arr = null) {
 		hspeed = 1
@@ -46,6 +47,7 @@
 		y = _y
 		w = 7
 		h = 7
+		step = 0
 	}
 
 	function collision(_x, _y) {
@@ -63,7 +65,8 @@
 	}
 
 	function run() {
-	  	if(gvGameOverlay != emptyFunc) { //If an overlay is active, update Tux without allowing him to move.
+
+		if(gvGameOverlay != emptyFunc) { //If an overlay is active, update Tux without allowing him to move.
 			tuxStand()
 			return updateTux()
 		}
@@ -83,21 +86,52 @@
 		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
 		if(getcon("down", "hold")) ysort = (nsp * diagonal)
 
+		if(getcon("right", "press")){
+			step += 1
+			if(step % 2 == 0) frame = 1
+			if(step % 2 == 1) frame = 3
+		}
+		if(getcon("left", "press")){
+			step += 1
+			if(step % 2 == 0) frame = 1
+			if(step % 2 == 1) frame = 3
+		}
+		if(getcon("up", "press")){
+			step += 1
+			if(step % 2 == 0) frame = 1
+			if(step % 2 == 1) frame = 3
+		}
+		if(getcon("down", "press")){
+			step += 1
+			if(step % 2 == 0) frame = 1
+			if(step % 2 == 1) frame = 3
+		}
+
+		
+
 		if(xsort > 0) {
-			anim = anWalkRight
-			face = 0
+			if(!(getcon("up", "hold") || getcon("down", "hold")) || collision(x + xsort, y)){
+				anim = anWalkRight
+				face = 0
+			}
 		}
 		if(xsort < 0) {
-			anim = anWalkLeft
-			face = 1
+			if(!(getcon("up", "hold") || getcon("down", "hold")) || collision(x + xsort, y)){
+				anim = anWalkLeft
+				face = 1
+			}
 		}
 		if(ysort > 0) {
-			anim = anWalkDown
-			face = 2
+			if(!(getcon("right", "hold") || getcon("left", "hold")) || collision(x, y + ysort)){
+				anim = anWalkDown
+				face = 2
+			}
 		}
 		if(ysort < 0) {
-			anim = anWalkUp
-			face = 3
+			if(!(getcon("right", "hold") || getcon("left", "hold")) || collision(x, y + ysort)){
+				anim = anWalkUp
+				face = 3
+			}
 		}
 
 		if(xsort == 0 && ysort == 0) tuxStand()
@@ -121,7 +155,10 @@
 		x += xsort
 		y += ysort
 
-		//updateTux()
+	}
+
+	function move(){
+		if(getcon("right", "hold") || getcon("left", "hold") || getcon("up", "hold") || getcon("down", "hold")) return true
 	}
 
 	function tuxStand() {
