@@ -36,7 +36,7 @@ if(fileExists("config.json")) config = mergeTable(config, jsonRead(fileRead("con
 translation.setLanguage(config.language)
 
 //Set up the window
-setFPS(120)
+setFPS(60)
 setResolution(400, 240)
 setWindowTitle("Tuxtale [PROTOTYPE]")
 setWindowIcon("icon.png")
