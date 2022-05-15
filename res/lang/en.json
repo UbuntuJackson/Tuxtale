@@ -1,0 +1,30 @@
+{
+	"meMain": {
+		"start-game": "Start Game",
+		"options": "Options",
+		"quit-game": "Quit Game"
+	},
+	"meStartGame": {
+		"file": "File",
+		"empty": " [EMPTY]"
+	},
+	"meOptions": {
+		"language": "Language",
+		"cursor": "Cursor",
+		"shown": "Shown",
+		"hidden": "Hidden"
+	},
+	"mePause": {
+		"save-game": "Save Game",
+		"quit-game": "Quit Game"
+	},
+	"meCommons": {
+		"back": "Back",
+		"continue": "Continue"
+	},
+
+	"languages": {
+		"en": "English",
+		"es": "Spanish"
+	}
+}
