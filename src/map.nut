@@ -20,6 +20,7 @@
 	tiles = null //List for keeping all tiles in a map.
 	objects = null //List for keeping all objects in a map.
 	enemies = null
+	bullets = null
 	spawnpoint = null //The first found spawnpoint in the map.
 
 	constructor(_path = null) {
@@ -28,13 +29,21 @@
 		tiles = []
 		objects = []
 		enemies = []
+		bullets = []
 		//If a path to a map is given, load it.
 		if(_path) path = _path
 		map = jsonRead(fileRead(path))
 	}
 	function load() { //Load the given Tiled map.
 		//Create all tiles.
-		//local firstgid = map["tilesets"][1]["firstgid"]
+		local objectsFirstGid = 0
+
+		foreach(i in map["tilesets"]){
+			if(i["name"] == "objects"){
+				objectsFirstGid = i["firstgid"]
+				//print(firstgid)
+			}
+		}
 
 		foreach(layer in map["layers"]) {
 			if(!layer.rawin("data")) continue
@@ -56,8 +65,19 @@
 			if(layer.rawin("objects")){
 				//Iterate through all objects in a layer and create them accordingly with their IDs.
 				foreach(object in layer["objects"]) {
-					local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID].
-					objects.push(actor[newActor(Object, object["x"] + 16, object["y"], [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+					local n = object["gid"] - objectsFirstGid
+					local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID]
+					switch(n){
+						case 0:
+							objects.push(actor[newActor(Object, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+							print(jsonWrite(tilesetData))
+							break
+						case 2:
+							objects.push(actor[newActor(Enemy, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+							break
+						//case 1:
+
+					}
 					if(getProperty(object, "spawnpoint") && !spawnpoint) spawnpoint = {"x": object["x"] + 16, "y": object["y"]} //If that's the first object with the property "spawnpoint" set to true, set it as the current spawnpoint.
 				}
 			}

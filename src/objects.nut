@@ -97,33 +97,3 @@
 		drawText(font, screenW() / 2 - fontWidth * text.len() / 2, screenH() / 12, text)
 	}
 }
-
-::Enemy <- class extends Actor{
-	w = 8
-	h = 8
-	spr = sprObjects
-	tile = 0
-	solid = false
-	visible = true
-	constructor(_x, _y, _arr = null) {
-		x = _x
-		y = _y
-		if(!_arr) return
-		if(_arr.len() >= 1) spr = _arr[0]
-		if(_arr.len() >= 3) solid = _arr[1]
-		if(_arr.len() >= 2) tile = _arr[2]
-		if(_arr.len() >= 4) visible = _arr[3]
-	}
-	function run() {
-		if(visible) draw()
-	}
-	function draw() {
-		drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
-	}
-	function onCollision() {
-		startBattle(this)
-	}
-	function _typeof(){
-		return "Enemy"
-	}
-}

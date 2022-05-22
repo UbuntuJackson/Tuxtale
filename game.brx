@@ -27,7 +27,9 @@ donut("src/gmoverlay.nut");
 donut("src/map.nut");
 donut("src/translation.nut");
 donut("src/util.nut");
-donut("src/external/util.nut")
+donut("src/external/util.nut");
+donut("src/gmbattle.nut")
+donut("src/enemies.nut")
 
 //Load config from file, if available
 if(fileExists("config.json")) config = mergeTable(config, jsonRead(fileRead("config.json")))

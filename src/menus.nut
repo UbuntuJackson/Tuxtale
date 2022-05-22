@@ -60,7 +60,7 @@
 		menu[menu.len() - 1].back();
 	}
 	if(menuBackTimeout > 0) menuBackTimeout--; //Count the current frame in the menu back timeout.
-	
+
 	updateCursor() //Update the mouse cursor.
 }
 ::goToMenu <- function(newMenu) { //Go to another menu.

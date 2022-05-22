@@ -1,20 +1,4 @@
-::gmInactiveActors <- []
-
-::startBattle <- function(enemy){
-	gmInactiveActors = clone(actor)
-	actor = clone(actorsClear)
-	print("startBattle")
-	actor[newActor(EnemyBattle, 200, 200)]
-	gvGameMode = gmBattleMode
-	actor[newActor(Soul, 200, 200)]
-}
-
-::gmBattleMode <- function(){
-	runActors()
-	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause)
-}
-
-/*::EnemyBattle <- class extends Object{
+::EnemyBattle <- class extends Object{
 	//x = 0
 	//y = 0
 	timer = 0
@@ -200,17 +184,14 @@
 	shape = 0
 	w = 16
 	h = 16
-	step = 0
 
 	constructor(_x, _y, _arr = null) {
 		hspeed = 1
-		anim = anStandRight
 		nsp = 1.5
 		x = _x
 		y = _y
 		w = 7
 		h = 7
-		step = 0
 	}
 
 	function collision(_x, _y) {
@@ -264,6 +245,8 @@
 		x += xsort
 		y += ysort
 
+		updateSoul()
+
 	}
 
 	function move(){
@@ -287,7 +270,6 @@
 	}
 
 	function updateSoul() {
-		frame += 0.1
-		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
+		drawSprite(sprSoul, 0, x - gmData.camX, y - gmData.camY)
 	}
-}*/
+}

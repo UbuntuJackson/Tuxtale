@@ -67,78 +67,6 @@
                  "y":96
                 }, 
                 {
-                 "gid":17,
-                 "height":16,
-                 "id":4,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"solid",
-                         "type":"bool",
-                         "value":false
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":144,
-                 "y":224
-                }, 
-                {
-                 "gid":19,
-                 "height":16,
-                 "id":5,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"solid",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":176,
-                 "y":224
-                }, 
-                {
-                 "gid":20,
-                 "height":16,
-                 "id":6,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"solid",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":208,
-                 "y":224
-                }, 
-                {
-                 "gid":21,
-                 "height":16,
-                 "id":7,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"solid",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":240,
-                 "y":224
-                }, 
-                {
                  "gid":21,
                  "height":16,
                  "id":10,
@@ -155,18 +83,6 @@
                  "width":16,
                  "x":272,
                  "y":224
-                }, 
-                {
-                 "gid":22,
-                 "height":16,
-                 "id":12,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":144,
-                 "y":256
                 }, 
                 {
                  "gid":1,
@@ -263,6 +179,18 @@
                  "width":16,
                  "x":192,
                  "y":352
+                }, 
+                {
+                 "gid":19,
+                 "height":16,
+                 "id":23,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":96,
+                 "y":144
                 }],
          "opacity":1,
          "properties":[
@@ -280,43 +208,7 @@
          "draworder":"topdown",
          "id":4,
          "name":"unsolidObj",
-         "objects":[
-                {
-                 "gid":21,
-                 "height":16,
-                 "id":8,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"solid",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":448.5,
-                 "y":256
-                }, 
-                {
-                 "gid":21,
-                 "height":16,
-                 "id":9,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"solid",
-                         "type":"bool",
-                         "value":false
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":448,
-                 "y":288
-                }],
+         "objects":[],
          "opacity":1,
          "properties":[
                 {
@@ -330,7 +222,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":21,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

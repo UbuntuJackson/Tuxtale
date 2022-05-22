@@ -117,7 +117,7 @@
  "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.2",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -160,46 +160,59 @@
          "tilewidth":16
         }, 
         {
-         "columns":4,
+         "columns":2,
          "firstgid":34,
          "image":"..\/gfx\/tiles\/bricks.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":32,
+         "imagewidth":32,
          "margin":0,
          "name":"bricks",
          "spacing":0,
-         "tilecount":16,
+         "tilecount":4,
          "tileheight":16,
          "tilewidth":16
         }, 
         {
          "columns":11,
-         "firstgid":50,
+         "firstgid":38,
          "image":"..\/gfx\/tiles\/doors.png",
          "imageheight":192,
          "imagewidth":176,
          "margin":0,
          "name":"doors",
          "spacing":0,
-         "tilecount":132,
+         "tilecount":0,
          "tileheight":16,
          "tilewidth":16
         }, 
         {
          "columns":20,
-         "firstgid":182,
+         "firstgid":38,
          "image":"..\/gfx\/tiles\/statics.png",
          "imageheight":544,
          "imagewidth":320,
          "margin":0,
          "name":"statics",
          "spacing":0,
-         "tilecount":680,
+         "tilecount":0,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":10,
+         "firstgid":38,
+         "image":"..\/gfx\/Battle\/battlefield.png",
+         "imageheight":160,
+         "imagewidth":160,
+         "margin":0,
+         "name":"battlefield",
+         "spacing":0,
+         "tilecount":100,
          "tileheight":16,
          "tilewidth":16
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":50
 }

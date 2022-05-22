@@ -86,28 +86,13 @@
 		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
 		if(getcon("down", "hold")) ysort = (nsp * diagonal)
 
-		if(getcon("right", "press")){
-			step += 1
-			if(step % 2 == 0) frame = 1
-			if(step % 2 == 1) frame = 3
-		}
-		if(getcon("left", "press")){
-			step += 1
-			if(step % 2 == 0) frame = 1
-			if(step % 2 == 1) frame = 3
-		}
-		if(getcon("up", "press")){
-			step += 1
-			if(step % 2 == 0) frame = 1
-			if(step % 2 == 1) frame = 3
-		}
-		if(getcon("down", "press")){
+		if(press()){
 			step += 1
 			if(step % 2 == 0) frame = 1
 			if(step % 2 == 1) frame = 3
 		}
 
-		
+
 
 		if(xsort > 0) {
 			anim = anWalkRight
@@ -151,6 +136,22 @@
 
 	function move(){
 		if(getcon("right", "hold") || getcon("left", "hold") || getcon("up", "hold") || getcon("down", "hold")) return true
+	}
+
+	function press(){
+		if(getcon("right", "press") || getcon("left", "press") || getcon("up", "press") || getcon("down", "press")) return true
+	}
+
+	function move_vertically(){
+		if(getcon("right", "hold") || getcon("left", "hold")) return true
+	}
+
+	function move_horisontally(){
+		if(getcon("up", "hold") || getcon("down", "hold")) return true
+	}
+
+	function move_diagonally(){
+		if(move_horisontally() && move_vertically()) return true
 	}
 
 	function tuxStand() {

@@ -30,6 +30,7 @@
 ::sprObjects <- newSprite("res/gfx/tiles/objects.png", 16, 16, 0, 0, 8, 8)
 ::sprGrass <- newSprite("res/gfx/tiles/grass.png", 16, 16, 0, 0, 8, 8)
 ::sprWood <- newSprite("res/gfx/tiles/wood.png", 16, 16, 0, 0, 8, 8)
+::sprSoul <- newSprite("res/gfx/Tux/taletuxsoul.png", 8, 8, 0, 0, 4, 4)
 
 //Game management
 ::gvCamTarget <- null
