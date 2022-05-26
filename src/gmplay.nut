@@ -36,9 +36,9 @@
 	//Update position and camera data of the player in game data.
 	gmData.posX = gmPlayer.x
 	gmData.posY = gmPlayer.y
-	gmData.camX += gmPlayer.xsort
-	gmData.camY += gmPlayer.ysort
-	gmPlayer.updateTux()
+	gmData.camX += gmPlayer.xspeed
+	gmData.camY += gmPlayer.yspeed
+	//gmPlayer.updateTux()
 
 	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause) //Pressing the Pause key pauses the game.
 }
@@ -57,8 +57,8 @@
 	if(gmMap.spawnpoint && !saveExists) { //If a spawnpoint exists in the current map and an empty save is being entered, use it.
 		gmData.posX = gmMap.spawnpoint["x"]
 		gmData.posY = gmMap.spawnpoint["y"]
-		gmData.camX = gmData.posX - 180
-		gmData.camY = gmData.posY - 130
+		gmData.camX = gmData.posX - screenW()/2
+		gmData.camY = gmData.posY - screenH()/2
 	}
 	gmPlayer = actor[newActor(Tux, gmData.posX, gmData.posY)] //Define the player (Tux)
 	gvGameMode = gmPlay

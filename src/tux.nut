@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-::Tux <- class extends Actor {
+::Tux <- class extends Physactor {
 	frame = 0.0
 	anim = [] //Animation frame delimiters: [start, end, speed]
 	anStandRight = [0.0, 0.0, "standright"]
@@ -29,8 +29,8 @@
 	hspeed = 0
 	vspeed = 0
 	mspeed = 1
-	ysort = 0
-	xsort = 0
+	yspeed = 0
+	xspeed = 0
 	diagonal = 1
 	nsp = 2
 	face = 0
@@ -38,6 +38,7 @@
 	w = 16
 	h = 16
 	step = 0
+	shape = 0
 
 	constructor(_x, _y, _arr = null) {
 		hspeed = 1
@@ -48,43 +49,34 @@
 		w = 7
 		h = 7
 		step = 0
-	}
-
-	function collision(_x, _y) {
-		foreach(tile in gmMap.tiles) {
-			if(fabs(_x - tile.x) < w + tile.w && fabs(_y - tile.y) < h + tile.h) {
-				return tile.solid
-			}
-		}
-		foreach(obj in gmMap.objects) {
-			if(fabs(_x - obj.x) < w + obj.w && fabs(_y - obj.y) < h + obj.h) {
-				obj.onCollision()
-				return obj.solid
-			}
-		}
+		shape = Rec(x, y, 7, 7, 0, 0, 0)
 	}
 
 	function run() {
+
+		shape.setPos(x, y)
+		shape.draw()
+		updateTux()
 
 		if(gvGameOverlay != emptyFunc) { //If an overlay is active, update Tux without allowing him to move.
 			tuxStand()
 			return updateTux()
 		}
 
-		if(xsort != 0 && ysort != 0) {
+		if(xspeed != 0 && yspeed != 0) {
 			diagonal = 0.707
 		}
 		else {
 			diagonal = 1
 		}
 
-		if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
-		if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
+		if(!(getcon("right", "hold") || getcon("left", "hold"))) xspeed = 0
+		if(!(getcon("up", "hold") || getcon("down", "hold"))) yspeed = 0
 
-		if(getcon("right", "hold")) xsort = (nsp * diagonal)
-		if(getcon("left", "hold")) xsort = (-nsp * diagonal)
-		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
-		if(getcon("down", "hold")) ysort = (nsp * diagonal)
+		if(getcon("right", "hold")) xspeed = (nsp * diagonal)
+		if(getcon("left", "hold")) xspeed = (-nsp * diagonal)
+		if(getcon("up", "hold")) yspeed = (-nsp * diagonal)
+		if(getcon("down", "hold")) yspeed = (nsp * diagonal)
 
 		if(press()){
 			step += 1
@@ -94,44 +86,43 @@
 
 
 
-		if(xsort > 0) {
+		if(xspeed > 0) {
 			anim = anWalkRight
 			face = 0
 		}
-		if(xsort < 0) {
+		if(xspeed < 0) {
 			anim = anWalkLeft
 			face = 1
 		}
-		if(ysort > 0) {
+		if(yspeed > 0) {
 			anim = anWalkDown
 			face = 2
 		}
-		if(ysort < 0) {
+		if(yspeed < 0) {
 			anim = anWalkUp
 			face = 3
 		}
 
-		if(xsort == 0 && ysort == 0) tuxStand()
+		if(xspeed == 0 && yspeed == 0) tuxStand()
 
-		if(collision(x + xsort, y)) {
-			xsort = 0
-			if(xsort == 0 && ysort == 0) tuxStand()
+		if(collision(x + xspeed, y, "Tile")) {
+			xspeed = 0
+			if(xspeed == 0 && yspeed == 0) tuxStand()
 		}
 
-		if(collision(x, y + ysort)) {
-			ysort = 0
-			if(xsort == 0 && ysort == 0) tuxStand()
+		if(collision(x, y + yspeed, "Tile")) {
+			yspeed = 0
+			if(xspeed == 0 && yspeed == 0) tuxStand()
 		}
 
-		if(collision(x + xsort, y + ysort)){
-			ysort = 0
-			xsort = 0
-			if(xsort == 0 && ysort == 0) tuxStand()
+		if(collision(x + xspeed, y + yspeed, "Tile")){
+			yspeed = 0
+			xspeed = 0
+			if(xspeed == 0 && yspeed == 0) tuxStand()
 		}
 
-		x += xsort
-		y += ysort
-
+		x += xspeed
+		y += yspeed
 	}
 
 	function move(){
@@ -170,6 +161,12 @@
 			  	break
 	  	}
 	}
+
+	/*function onCollision(_obj){
+		switch(_obj){
+
+		}
+	}*/
 
 	function updateTux() {
 		frame += 0.1

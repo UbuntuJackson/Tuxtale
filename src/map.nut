@@ -54,7 +54,7 @@
 					local tileId = layer["data"][tileDataIterator]
 					if(tileId > 0) {
 						local tilesetData = getTileset(tileId) //Structure: [tileset, firstGID].
-						tiles.push(actor[newActor(Tile, 16 * x, 16 * y, [tilesetData[0], tileId - tilesetData[1], !getProperty(layer, "unsolid"), layer["visible"]])])
+						actor[newActor(Tile, 16 * x, 16 * y, [tilesetData[0], tileId - tilesetData[1], !getProperty(layer, "unsolid"), layer["visible"]])]
 					}
 					tileDataIterator++
 				}
@@ -69,11 +69,10 @@
 					local tilesetData = getTileset(object["gid"]) //Structure: [tileset, firstGID]
 					switch(n){
 						case 0:
-							objects.push(actor[newActor(Object, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
-							print(jsonWrite(tilesetData))
+							actor[newActor(Object, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])]
 							break
 						case 2:
-							objects.push(actor[newActor(Enemy, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])])
+							actor[newActor(Enemy, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])]
 							break
 						//case 1:
 

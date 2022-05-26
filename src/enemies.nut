@@ -1,4 +1,4 @@
-::EnemyBattle <- class extends Object{
+::EnemyBattle <- class extends Physactor{
 	//x = 0
 	//y = 0
 	timer = 0
@@ -107,7 +107,7 @@
 
 }
 
-::Enemy <- class extends Actor{
+::Enemy <- class extends Physactor{
 	w = 8
 	h = 8
 	spr = sprObjects
@@ -177,8 +177,8 @@
 	hspeed = 0
 	vspeed = 0
 	mspeed = 1
-	ysort = 0
-	xsort = 0
+	yspeed = 0
+	xspeed = 0
 	diagonal = 1
 	nsp = 2
 	shape = 0
@@ -214,36 +214,36 @@
 			return updateSoul()
 		}
 
-		if(xsort != 0 && ysort != 0) {
+		if(xspeed != 0 && yspeed != 0) {
 			diagonal = 0.707
 		}
 		else {
 			diagonal = 1
 		}
 
-		if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
-		if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
+		if(!(getcon("right", "hold") || getcon("left", "hold"))) xspeed = 0
+		if(!(getcon("up", "hold") || getcon("down", "hold"))) yspeed = 0
 
-		if(getcon("right", "hold")) xsort = (nsp * diagonal)
-		if(getcon("left", "hold")) xsort = (-nsp * diagonal)
-		if(getcon("up", "hold")) ysort = (-nsp * diagonal)
-		if(getcon("down", "hold")) ysort = (nsp * diagonal)
+		if(getcon("right", "hold")) xspeed = (nsp * diagonal)
+		if(getcon("left", "hold")) xspeed = (-nsp * diagonal)
+		if(getcon("up", "hold")) yspeed = (-nsp * diagonal)
+		if(getcon("down", "hold")) yspeed = (nsp * diagonal)
 
-		if(collision(x + xsort, y)) {
-			xsort = 0
+		if(collision(x + xspeed, y)) {
+			xspeed = 0
 		}
 
-		if(collision(x, y + ysort)) {
-			ysort = 0
+		if(collision(x, y + yspeed)) {
+			yspeed = 0
 		}
 
-		if(collision(x + xsort, y + ysort)){
-			ysort = 0
-			xsort = 0
+		if(collision(x + xspeed, y + yspeed)){
+			yspeed = 0
+			xspeed = 0
 		}
 
-		x += xsort
-		y += ysort
+		x += xspeed
+		y += yspeed
 
 		updateSoul()
 

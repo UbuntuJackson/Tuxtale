@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-::Tile <- class extends Actor {
+::Tile <- class extends Physactor {
 	w = 8
 	h = 8
 	spr = sprTile
@@ -31,7 +31,16 @@
 		if(_arr.len() >= 4) visible = _arr[3]
 	}
 	function run() {
+		/*if(gmPlayer){
+			if(collision(gmPlayer, this)){
+
+			}
+		}*/
 		if(visible) drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)
+	}
+
+	function _typeof(){
+		return "Tile"
 	}
 }
 
