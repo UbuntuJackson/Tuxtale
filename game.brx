@@ -38,7 +38,7 @@ translation.setLanguage(config.language)
 //Set up the window
 setFPS(60)
 setResolution(400, 240)
-setWindowTitle("Tuxtale [pre-alpha]")
+setWindowTitle("Tuxtale [prototype]")
 setWindowIcon("icon.png")
 
 //Set fullscreen according to preference in config
