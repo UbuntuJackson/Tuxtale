@@ -50,7 +50,7 @@
 		menuSelectorPos++;
 	}
 	//Accept
-	if(getcon("accept", "press")) {
+	if(getcon("accept", "press") || (mousePress(0) && config.showcursor && cursorItem == menuSelectorPos)) {
 		if(!menu[menuSelectorPos].rawin("func")) return;
 		menu[menuSelectorPos].func();
 	}
@@ -60,6 +60,8 @@
 		menu[menu.len() - 1].back();
 	}
 	if(menuBackTimeout > 0) menuBackTimeout--; //Count the current frame in the menu back timeout.
+	
+	updateCursor() //Update the mouse cursor.
 }
 ::goToMenu <- function(newMenu) { //Go to another menu.
 	menuSelectorPos = 0;
@@ -79,42 +81,42 @@
 //Main menu
 ::meMain <- [
 	{
-		name = function() {return gvTranslation.tr("Start Game")},
+		name = function() {return translation.tr("Start Game")},
 		func = function() {goToMenu(meStartGame)}
 	},
 	{
-		name = function() {return gvTranslation.tr("Options")},
+		name = function() {return translation.tr("Options")},
 		func = function() {goToMenu(meOptions)}
 	},
 	{
-		name = function() {return gvTranslation.tr("Quit Game")},
+		name = function() {return translation.tr("Quit Game")},
 		func = function() {gvQuit = true}
 	}
 ]
 //Start game menu
 ::meStartGame <- [
 	{
-		name = function() {return gvTranslation.tr("File 1") + (!fileExists("save/save" + 1 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
+		name = function() {return translation.tr("File 1") + (!fileExists("save/save" + 1 + ".json") ? translation.tr(" [EMPTY]") : "")},
 		func = function() {quitMenu(); startGame(1)}
 	},
 	{
-		name = function() {return gvTranslation.tr("File 2") + (!fileExists("save/save" + 2 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
+		name = function() {return translation.tr("File 2") + (!fileExists("save/save" + 2 + ".json") ? translation.tr(" [EMPTY]") : "")},
 		func = function() {quitMenu(); startGame(2)}
 	},
 	{
-		name = function() {return gvTranslation.tr("File 3") + (!fileExists("save/save" + 3 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
+		name = function() {return translation.tr("File 3") + (!fileExists("save/save" + 3 + ".json") ? translation.tr(" [EMPTY]") : "")},
 		func = function() {quitMenu(); startGame(3)}
 	},
 	{
-		name = function() {return gvTranslation.tr("File 4") + (!fileExists("save/save" + 4 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
+		name = function() {return translation.tr("File 4") + (!fileExists("save/save" + 4 + ".json") ? translation.tr(" [EMPTY]") : "")},
 		func = function() {quitMenu(); startGame(4)}
 	},
 	{
-		name = function() {return gvTranslation.tr("File 5") + (!fileExists("save/save" + 5 + ".json") ? gvTranslation.tr(" [EMPTY]") : "")},
+		name = function() {return translation.tr("File 5") + (!fileExists("save/save" + 5 + ".json") ? translation.tr(" [EMPTY]") : "")},
 		func = function() {quitMenu(); startGame(5)}
 	},
 	{
-		name = function() {return gvTranslation.tr("Back")},
+		name = function() {return translation.tr("Back")},
 		func = function() {goToMenu(meMain)},
 		back = function() {goToMenu(meMain)}
 	}
@@ -122,7 +124,7 @@
 //Options menu
 ::meOptions <- [
 	{
-		name = function() {return gvTranslation.tr("Language")},
+		name = function() {return translation.tr("Language")},
 		func = function() {
 			if(!fileExists("res/lang/languages.json"))
 				return
@@ -132,9 +134,9 @@
 				{
 					lang = entry[0],
 					langTitle = entry[1],
-					name = function() {return gvTranslation.tr(langTitle)},
+					name = function() {return translation.tr(langTitle)},
 					func = function() {
-						gvTranslation.setLanguage(lang)
+						translation.setLanguage(lang)
 						config.language = lang
 						meLanguage = []
 						goToMenu(meOptions)
@@ -143,15 +145,19 @@
 			}
 			meLanguage.push(
 			{
-				name = function() {return gvTranslation.tr("Back")},
-				back = function() {meLanguage = []; goToMenu(meOptions)},
-				func = function() {meLanguage = []; goToMenu(meOptions)}
+				name = function() {return translation.tr("Back")},
+				func = function() {meLanguage = []; goToMenu(meOptions)},
+				back = function() {meLanguage = []; goToMenu(meOptions)}
 			})
 			goToMenu(meLanguage)
 		}
 	},
 	{
-		name = function() {return gvTranslation.tr("Back")},
+		name = function() {return translation.tr("Cursor") + ": " + (config.showcursor ? translation.tr("Shown") : translation.tr("Hidden"))},
+		func = function() {config.showcursor = !config.showcursor; fileWrite("config.json", jsonWrite(config))}
+	},
+	{
+		name = function() {return translation.tr("Back")},
 		func = function() {fileWrite("config.json", jsonWrite(config)); goToMenu(meMain)},
 		back = function() {fileWrite("config.json", jsonWrite(config)); goToMenu(meMain)}
 	}
@@ -159,15 +165,15 @@
 //Pause menu
 ::mePause <- [
 	{
-		name = function() {return gvTranslation.tr("Continue")},
+		name = function() {return translation.tr("Continue")},
 		func = function() {quitMenu()}
 	},
 	{
-		name = function() {return gvTranslation.tr("Save Game")},
+		name = function() {return translation.tr("Save Game")},
 		func = function() {saveGame(); quitMenu()}
 	},
 	{
-		name = function() {return gvTranslation.tr("Quit Game")},
+		name = function() {return translation.tr("Quit Game")},
 		func = function() {quitMenu(); quitGame()},
 		back = function() {quitMenu()}
 	}

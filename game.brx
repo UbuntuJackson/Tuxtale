@@ -20,6 +20,7 @@ donut("src/tux.nut");
 donut("src/dialogs.nut");
 donut("src/objects.nut");
 donut("src/menus.nut");
+donut("src/cursor.nut");
 donut("src/gmmain.nut");
 donut("src/gmplay.nut");
 donut("src/gmoverlay.nut");
@@ -32,10 +33,10 @@ donut("src/external/util.nut")
 if(fileExists("config.json")) config = mergeTable(config, jsonRead(fileRead("config.json")))
 
 //Load translations, according to the current language, set in config
-gvTranslation.setLanguage(config.language)
+translation.setLanguage(config.language)
 
 //Set up the window
-setFPS(120)
+setFPS(60)
 setResolution(400, 240)
 setWindowTitle("Tuxtale [PROTOTYPE]")
 setWindowIcon("icon.png")
@@ -48,9 +49,7 @@ gvGameMode = gmMenu
 gvGameOverlay = emptyFunc
 
 //Main game loop
-while(!gvQuit) {
-	if(getQuit()) break //Detect if game is exited
-
+while(!gvQuit && !getQuit()) {
 	//Update various parts of the application
 	gvGameMode()
 	gvGameOverlayParam ? gvGameOverlay(gvGameOverlayParam) : gvGameOverlay()

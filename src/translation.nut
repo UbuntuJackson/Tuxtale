@@ -16,9 +16,9 @@
 
 ::Translation <- class {
 	// Contains currently selected language
-	m_lang = "en"
+	lang = "en"
 	// Contains translation loaded from .json
-	m_translationData = {}
+	translationData = {}
 
 
 	/*
@@ -26,26 +26,26 @@
 	* \param lang Language that has to be used
 	*/
 	function setLanguage(lang) {
-		m_lang = lang
+		lang = lang
 		if(lang == "en") {
-			m_translationData = {}
+			translationData = {}
 			return
 		}
 		local langFile = "res/lang/" + lang + ".json"
 		if(!fileExists(langFile))
 			return
-		m_translationData = jsonRead(fileRead(langFile))
+		translationData = jsonRead(fileRead(langFile))
 	}
 
 	/*
 	* \brief Returns translation of msgid in selected language, if msgid is not found in lang file, it returns msgid back
-	* \param msgid String to be translated
+	* \param msgId String to be translated
 	* \returns Translated string
 	*/
-	function tr(msgid) {
-		if(!m_translationData.rawin(msgid))
-			return msgid
-		return m_translationData[msgid]
+	function tr(msgId) {
+		if(!translationData.rawin(msgId))
+			return msgId
+		return translationData[msgId]
 	}
 }
-::gvTranslation <- Translation()
+::translation <- Translation()

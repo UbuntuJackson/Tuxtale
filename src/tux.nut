@@ -32,7 +32,7 @@
 	ysort = 0
 	xsort = 0
 	diagonal = 1
-	nsp = 1
+	nsp = 2
 	face = 0
 	shape = 0
 	w = 16
@@ -41,7 +41,7 @@
 	constructor(_x, _y, _arr = null) {
 		hspeed = 1
 		anim = anStandRight
-		nsp = 1
+		nsp = 1.5
 		x = _x
 		y = _y
 		w = 7
@@ -74,10 +74,6 @@
 		else {
 			diagonal = 1
 		}
-
-		//Update camera position in the game data.
-		gmData.camX += xsort
-		gmData.camY += ysort
 
 		if(!(getcon("right", "hold") || getcon("left", "hold"))) xsort = 0
 		if(!(getcon("up", "hold") || getcon("down", "hold"))) ysort = 0
@@ -116,13 +112,16 @@
 			if(xsort == 0 && ysort == 0) tuxStand()
 		}
 
+		if(collision(x + xsort, y + ysort)){
+			ysort = 0
+			xsort = 0
+			if(xsort == 0 && ysort == 0) tuxStand()
+		}
+
 		x += xsort
 		y += ysort
-		//Update Tux's position in the game data.
-		gmData.posX = x
-		gmData.posY = y
 
-		updateTux()
+		//updateTux()
 	}
 
 	function tuxStand() {
@@ -143,7 +142,7 @@
 	}
 
 	function updateTux() {
-		frame += 0.05
+		frame += 0.1
 		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
 	}
 }
