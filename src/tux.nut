@@ -105,17 +105,17 @@
 
 		if(xspeed == 0 && yspeed == 0) tuxStand()
 
-		if(collision(x + xspeed, y, "Tile")) {
+		if(collision(x + xspeed, y, "Tile")[0]) {
 			xspeed = 0
 			if(xspeed == 0 && yspeed == 0) tuxStand()
 		}
 
-		if(collision(x, y + yspeed, "Tile")) {
+		if(collision(x, y + yspeed, "Tile")[0]) {
 			yspeed = 0
 			if(xspeed == 0 && yspeed == 0) tuxStand()
 		}
 
-		if(collision(x + xspeed, y + yspeed, "Tile")){
+		if(collision(x + xspeed, y + yspeed, "Tile")[0]){
 			yspeed = 0
 			xspeed = 0
 			if(xspeed == 0 && yspeed == 0) tuxStand()
@@ -171,5 +171,9 @@
 	function updateTux() {
 		frame += 0.1
 		drawSprite(sprTaleTux, wrap(floor(frame), anim[0], anim[1]), x - gmData.camX, y - gmData.camY)
+	}
+
+	function _typeof(){
+		return "gmPlayer"
 	}
 }

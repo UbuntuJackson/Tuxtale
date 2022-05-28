@@ -74,6 +74,10 @@
 						case 2:
 							actor[newActor(Enemy, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])]
 							break
+						/*case 3:
+							actor[newActor(Chest, object.x + 16, object.y, [tilesetData[0], object["gid"] - tilesetData[1], getProperty(object, "solid") && !getProperty(layer, "unsolid"), object["visible"] && layer["visible"]])]
+							break*/
+						//Holy shit we have no chest we need to do something about that.
 						//case 1:
 
 					}

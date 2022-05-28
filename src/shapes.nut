@@ -16,10 +16,11 @@
 	function collision(_x, _y, _obj) {
 		if(actor.rawin(_obj)) foreach (i in actor[_obj]) {
 			if(fabs(_x - i.x) < w + i.w && fabs(_y - i.y) < h + i.h) {
-				i.onCollision()
-				return true
+				return [true, i]
 			}
+
 		}
+		return [false]
 	}
 
 	function run() {
@@ -34,6 +35,10 @@
 		local cy = floor(_y / 16)
 		local cw = ceil(shape.w / 16)
 		local ch = ceil(shape.h / 16)
+
+	}
+
+	function onCollision(entity){
 
 	}
 }

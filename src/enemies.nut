@@ -125,6 +125,10 @@
 	}
 	function run() {
 		if(visible) draw()
+
+		if(collision(x, y, "gmPlayer")[0]){
+			startBattle(this)
+		}
 	}
 	function draw() {
 		drawSprite(spr, tile, x - gmData.camX, y - gmData.camY)

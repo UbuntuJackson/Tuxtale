@@ -42,6 +42,8 @@
 	function _typeof(){
 		return "Tile"
 	}
+
+	function onCollision(){}
 }
 
 ::Object <- class extends Actor {
