@@ -28,13 +28,18 @@
 				return
 		}
 
+		local translatable = false;
+		if(dialogsData[dialog].rawin("translate")) translatable = dialogsData[dialog]["translate"];
+
+		local text = translatable ? translation.tr("dialogs", dialog + "-" + dialogsData[dialog]["text"]) : dialogsData[dialog]["text"]
 		//Draw main text
 		if(dialogsData[dialog].rawin("moretext")) {
-				drawText(font, screenW() / 2 - dialogsData[dialog]["text"].len() * fontWidth / 2, screenH() / 2 - 25, dialogsData[dialog]["text"])
-				drawText(font, screenW() / 2 - dialogsData[dialog]["moretext"].len() * fontWidth / 2, screenH() / 2 - 12, dialogsData[dialog]["moretext"])
+				local moretext = translatable ? translation.tr("dialogs", dialog + "-" + dialogsData[dialog]["moretext"]) : dialogsData[dialog]["moretext"]
+				drawText(font, screenW() / 2 - text.len() * fontWidth / 2, screenH() / 2 - 25, text)
+				drawText(font, screenW() / 2 - moretext.len() * fontWidth / 2, screenH() / 2 - 12, moretext)
 		}
 		else {
-				drawText(font, screenW() / 2 - dialogsData[dialog]["text"].len() * fontWidth / 2, screenH() / 2 - 10, dialogsData[dialog]["text"])
+				drawText(font, screenW() / 2 - text.len() * fontWidth / 2, screenH() / 2 - 10, text)
 		}
 
 		if(dialogsData[dialog].rawin("responses")) { //The dialog has responses to choose from.
@@ -42,14 +47,15 @@
 				local responsesLeft = dialogsData[dialog]["responses"].len() //Responses left to print by the loop.
 				for(local responseId = 0; responseId < dialogsData[dialog]["responses"].len(); responseId++) {
 						local response = dialogsData[dialog]["responses"][responseId]
-						local responsePosX = screenW() / 2 - response["text"].len() * fontWidth / 2
+						local responseText = translatable ? translation.tr("dialogs", dialog + "-" + response["text"]) : response["text"]
+						local responsePosX = screenW() / 2 - responseText.len() * fontWidth / 2
 						local responsePosY = screenH() / 2 + 15 * (responseId + 1)
-						drawText(font, responsePosX, responsePosY, response["text"])
+						drawText(font, responsePosX, responsePosY, responseText)
 						responsesLeft--
 
 						if(dialogSelectorPos == responseId) { //The current response is selected.
 								drawText(font, responsePosX - 15, responsePosY, ">")
-								drawText(font, responsePosX + response["text"].len() * fontWidth + 4, responsePosY, "<")
+								drawText(font, responsePosX + responseText.len() * fontWidth + 4, responsePosY, "<")
 						}
 				}
 

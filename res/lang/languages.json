@@ -1,5 +1,8 @@
 {
 	"languages": [
-		["en", "English"]
+		["en", "English"],
+		["es", "Spanish"],
+		["pl", "Polish"],
+		["pt", "Portuguese"]
 	]
 }

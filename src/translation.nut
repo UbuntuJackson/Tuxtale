@@ -19,14 +19,15 @@
 	lang = "en"
 	// Contains translation loaded from .json
 	translationData = {}
-
+	// Contains translation data in English (used for failback)
+	translationDataEn = jsonRead(fileRead("res/lang/en.json"))
 
 	/*
 	* \brief Changes selected language
-	* \param lang Language that has to be used
+	* \param langToSet Language that has to be used
 	*/
-	function setLanguage(lang) {
-		lang = lang
+	function setLanguage(langToSet) {
+		lang = langToSet
 		if(lang == "en") {
 			translationData = {}
 			return
@@ -39,13 +40,13 @@
 
 	/*
 	* \brief Returns translation of msgid in selected language, if msgid is not found in lang file, it returns msgid back
-	* \param msgId String to be translated
+	* \param msgCategory - The category of the message; msgId - The ID of the string to be translated
 	* \returns Translated string
 	*/
-	function tr(msgId) {
-		if(!translationData.rawin(msgId))
-			return msgId
-		return translationData[msgId]
+	function tr(msgCategory, msgId) {
+		if(!translationData.rawin(msgCategory)) return translationDataEn[msgCategory][msgId]
+		if(!translationData[msgCategory].rawin(msgId)) return translationDataEn[msgCategory][msgId]
+		return translationData[msgCategory][msgId]
 	}
 }
 ::translation <- Translation()
