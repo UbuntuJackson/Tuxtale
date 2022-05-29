@@ -1,0 +1,32 @@
+{
+	"meMain": {
+		"start-game": "Começar o Jogo",
+		"options": "Opções",
+		"quit-game": "Sair do Jogo"
+	},
+	"meStartGame": {
+		"file": "Ficheiro",
+		"empty": " [VAZIO]"
+	},
+	"meOptions": {
+		"language": "Linguagem",
+		"cursor": "Cursor",
+		"shown": "Mostrado",
+		"hidden": "Escondido"
+	},
+	"mePause": {
+		"save-game": "Salvar Jogo",
+		"quit-game": "Sair do Jogo"
+	},
+	"meCommons": {
+		"back": "Voltar",
+		"continue": "Continuar"
+	},
+
+	"languages": {
+		"en": "Inglês",
+		"es": "Espanhol",
+		"pl": "Polonês",
+		"pt": "Português"
+	}
+}

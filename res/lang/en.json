@@ -25,7 +25,9 @@
 
 	"languages": {
 		"en": "English",
-		"es": "Spanish"
+		"es": "Spanish",
+		"pl": "Polish",
+		"pt": "Portuguese"
 	},
 
 	"dialogs": {
