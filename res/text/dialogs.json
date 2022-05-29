@@ -1,70 +1,76 @@
 {
 	"0": {
-		"text": "What type of dialog do you want to see?",
-		"moretext": "Select your prefered option.",
+		"translate": true,
+		"text": "1",
+		"moretext": "2",
 		"responses": [
 			{
-				"text": "One-answer dialog",
+				"text": "3",
 				"next": "1"
 			},
 			{
-				"text": "\"Back\" and \"Next\" options dialog",
+				"text": "4",
 				"next": "2"
 			},
 			{
-				"text": "Neither of those"
+				"text": "5"
 			}
 		]
 	},
 	"1": {
-		"text": "Okay, here you go. You have got only one option.",
+		"translate": true,
+		"text": "1",
 		"responses": [
 			{
-				"text": "Close"
+				"text": "2"
 			}
 		]
 	},
 	"2": {
-		"text": "So here you are - you can only go forward or backwards.",
-		"moretext": "Use the left and right arrow keys to navigate.",
+		"translate": true,
+		"text": "1",
+		"moretext": "2",
 		"back": "0",
 		"next": "3"
 	},
 	"3": {
-		"text": "Cool! Now you can navigate in dialogs, which don't have responses.",
+		"translate": true,
+		"text": "1",
 		"back": "2",
 		"next": "4"
 	},
 	"4": {
-		"text": "You cannot go back here...",
-		"moretext": "But you can still go to the next option.",
+		"translate": true,
+		"text": "1",
+		"moretext": "2",
 		"next": "5"
 	},
 	"5": {
-		"text": "Here you can choose to which of all dialogs you want to go to.",
+		"translate": true,
+		"text": "1",
 		"responses": [
 			{
-				"text": "0",
+				"text": "2",
 				"next": "0"
 			},
 			{
-				"text": "1",
+				"text": "3",
 				"next": "1"
 			},
 			{
-				"text": "2",
+				"text": "4",
 				"next": "2"
 			},
 			{
-				"text": "3",
+				"text": "5",
 				"next": "3"
 			},
 			{
-				"text": "4",
+				"text": "6",
 				"next": "4"
 			},
 			{
-				"text": "Close"
+				"text": "7"
 			}
 		]
 	}
