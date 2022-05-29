@@ -34,8 +34,6 @@
 	}
 
 	function end_act(){
-		max_number_of_projectiles = max
-		timer = t
 		released = 0
 		n+=1
 	}
