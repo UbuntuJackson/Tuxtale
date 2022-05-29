@@ -32,6 +32,21 @@
 ::sprWood <- newSprite("res/gfx/tiles/wood.png", 16, 16, 0, 0, 8, 8)
 ::sprSoul <- newSprite("res/gfx/Tux/taletuxsoul.png", 8, 8, 0, 0, 4, 4)
 
+::sprButtonFight <- newSprite("res/gfx/Battle/button-fight-f.png", 65, 37, 0, 0, 0, 0)
+::sprButtonAct <- newSprite("res/gfx/Battle/button-act-f.png", 65, 37, 0, 0, 0, 0)
+::sprButtonDefend <- newSprite("res/gfx/Battle/button-defend-f.png", 65, 37, 0, 0, 0, 0)
+::sprButtonItem <- newSprite("res/gfx/Battle/button-item-f.png", 65, 37, 0, 0, 0, 0)
+::sprButtonMagic <- newSprite("res/gfx/Battle/button-magic-f.png", 65, 37, 0, 0, 0, 0)
+::sprButtonEnd <- newSprite("res/gfx/Battle/button-end-f.png", 65, 37, 0, 0, 0, 0)
+
+::sprButtonFight <- newSprite("res/gfx/Battle/attack.png", 41, 37, 0, 0, 0, 0)
+::sprButtonAct <- newSprite("res/gfx/Battle/act.png", 41, 37, 0, 0, 0, 0)
+::sprButtonDefend <- newSprite("res/gfx/Battle/defend.png", 41, 37, 0, 0, 0, 0)
+::sprButtonItem <- newSprite("res/gfx/Battle/item.png", 41, 37, 0, 0, 0, 0)
+::sprButtonMagic <- newSprite("res/gfx/Battle/magic.png", 41, 37, 0, 0, 0, 0)
+::sprButtonEnd <- newSprite("res/gfx/Battle/end.png", 41, 37, 0, 0, 0, 0)
+
+
 //Game management
 ::gvCamTarget <- null
 ::gvGameMode <- null //Current gamemode

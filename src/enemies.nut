@@ -1,3 +1,5 @@
+::gmCurrentBattle <- null
+
 ::EnemyBattle <- class extends Physactor{
 	//x = 0
 	//y = 0
@@ -13,15 +15,15 @@
 	constructor(_x, _y, _arr = null) {
 		x = _x
 		y = _y
+		print("created")
 		timer = 0
-		queue = [c, d, e]
+		queue = [c, d, e, f]
+		max_number_of_projectiles = 20
+		print(max_number_of_projectiles)
+		released = 0
 		//restart = 500
 		if(!_arr) return
 		if(_arr.len() >= 1) restart = _arr[0]
-		n = 0
-		s = 0
-		max_number_of_projectiles = 20
-		released = 0
 		//timer = 0
 		//drawText(font, x, y, "O")
 	}
@@ -31,27 +33,27 @@
 		max_number_of_projectiles = max
 	}
 
-	function end_act(re, max){
-		if(gmMap.bullets.len() == 0){
-			n += 1
-			released = re
-			max_number_of_projectiles = max
-			//start_act()
-		}
+	function end_act(){
+		max_number_of_projectiles = max
+		timer = t
+		released = 0
+		n+=1
 	}
 
 	function c(){
+		max_number_of_projectiles = 10
 		print("c")
-
-		if(released != max_number_of_projectiles){
+		print(released)
+		print(max_number_of_projectiles)
+		if(released < max_number_of_projectiles){
 			if(getFrames() % 30 == 0){
-				gmMap.bullets.push(actor[newActor(Bullet, 200, 200, [0.5, 0.5])])
+				actor[newActor(Bullet, 200, 200, [0.5, 0.5])]
 				released += 1
 			}
 		}
 		else{
 			print("ending act")
-			end_act(0, 200)
+			end_act()
 		}
 
 		//number_of_projectiles == length of the bullets list
@@ -59,24 +61,41 @@
 
 	function d(){
 		print("d")
-		released = 0
-		max_number_of_projectiles = 20
-
-		if(released != max_number_of_projectiles){
+		max_number_of_projectiles = 5
+		if(released < max_number_of_projectiles){
 			if(getFrames() % 30 == 0){
-				gmMap.bullets.push(actor[newActor(Bullet, 200, 200, [-0.5, -0.5])])
+				actor[newActor(Bullet, 200, 200, [-0.5, -0.5])]
 				released += 1
 			}
 		}
 		else{
-			end_act(0, 20)
+			end_act()
 		}
 	}
 
 	function e(){
-		gmMap.bullets.push(actor[newActor(Bullet, 200, 200, [1, 1])])
-		n += 1
 		print("e")
+		max_number_of_projectiles = 10
+		if(released < max_number_of_projectiles){
+			if(getFrames() % 30 == 0){
+				actor[newActor(Bullet, 200, 200, [1, 1])]
+				released += 1
+			}
+		}
+		else{
+			end_act()
+		}
+	}
+
+	function f(){
+		timer = 100
+		timer--
+		if(timer > 0){
+			drawText(font, 200, 200, "Attack F")
+		}
+		else{
+			end_act()
+		}
 	}
 
 	function run(){
@@ -84,11 +103,10 @@
 		//schedule(200, d, "additional")
 		//schedule(300, e, "arguments")
 		//print(gmMap.bullets.len())
-		act = queue[n%3]
+		act = queue[n%queue.len()]
 		act()
 
 		//print("P")
-		update_timer()
 	}
 
 	function schedule(time, event, letter){
@@ -168,9 +186,9 @@
 		destruction_timer--
 		if(destruction_timer <= 0){
 			deleteActor(id)
-			print(jsonWrite(gmMap.bullets))
+			//print(jsonWrite(gmMap.bullets))
 		}
-		drawText(font, x - gmData.camX, y - gmData.camY, "O")
+		drawText(font, x, y, "O")
 	}
 }
 
@@ -274,6 +292,6 @@
 	}
 
 	function updateSoul() {
-		drawSprite(sprSoul, 0, x - gmData.camX, y - gmData.camY)
+		drawSprite(sprSoul, 0, x, y)
 	}
 }

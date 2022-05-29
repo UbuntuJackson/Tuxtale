@@ -1,4 +1,6 @@
 ::gmInactiveActors <- []
+::battleMenu <- []
+::gmBattlePhase <- null
 
 ::startBattle <- function(enemy){
 	gmInactiveActors = clone(actor)
@@ -6,13 +8,87 @@
 	print("startBattle")
 	actor[newActor(EnemyBattle, 200, 200)]
 	gvGameMode = gmBattleMode
-	actor[newActor(Soul, 200, 200)]
+	actor[newActor(Soul, screenW()/2, screenH()/2)]
+	battleMenu = meBattle
+	gmBattlePhase = gmBattleMenu
+	gmCurrentBattle = enemy
 }
 
 ::gmBattleMode <- function(){
 	runActors()
+	gmBattlePhase() //phase(), phase = gmBattleMenu, phase = Attack, phase = enemySpeak
 	if(getcon("pause", "press") && gvGameOverlay == emptyFunc) setOverlay(updateMenu, mePause)
 }
+
+::gmBattleMenu <- function(optMenu = null){
+	if(!battleMenu && !optMenu) return quitMenu(); //If no menu is loaded and no optional menu is given.
+	if(!battleMenu) battleMenu = optMenu; //If an optional menu to use was given as a parameter, set it as the current menu, if there isn't one already.
+	for(local index = 0; index < battleMenu.len(); index++) {
+		//drawText(font, 10, 20 * (index + 1), menu[index].name()); //drawSprite(xc, yc, path+bright/dark)
+		drawSprite(battleMenu[index].name(), 0, screenW()/2 + 41 * (index) - 41 * 3, screenH() - 37)
+		if(menuSelectorPos == index) {
+			setDrawColor(0xFFFFFF);
+			drawSprite(battleMenu[index].name(), 1, screenW()/2 + 41 * (index) - 41 * 3, screenH() - 37);
+		}
+	}
+	//Controls for menu navigation
+	//Up
+	if(getcon("left", "press")) {
+		if(menuSelectorPos == 0) {
+			menuSelectorPos = battleMenu.len() - 1;
+			return;
+		}
+		menuSelectorPos--;
+	}
+	//Down
+	if(getcon("right", "press")) {
+		if(menuSelectorPos == battleMenu.len() - 1) {
+			menuSelectorPos = 0;
+			return;
+		}
+		menuSelectorPos++;
+	}
+	//Accept
+	if(getcon("accept", "press") || (mousePress(0) && config.showcursor && cursorItem == menuSelectorPos)) {
+		if(!menu[menuSelectorPos].rawin("func")) return;
+		battleMenu[menuSelectorPos].func();
+	}
+	//Pause
+	if(getcon("pause", "press") && menuBackTimeout <= 0) {
+		/*if(!menu[menu.len() - 1].rawin("back")) return;
+		menu[menu.len() - 1].back();*/
+	}
+	//if(menuBackTimeout > 0) menuBackTimeout--; //Count the current frame in the menu back timeout.
+
+	//updateCursor() //Update the mouse cursor.
+}
+
+::meBattle <- [
+	{
+		name = function() {return sprButtonFight},
+		func = function() {}
+	},
+	{
+		name = function() {return sprButtonAct},
+		func = function() {}
+	},
+	{
+		name = function() {return sprButtonDefend},
+		func = function() {}
+	},
+	{
+		name = function() {return sprButtonItem},
+		func = function() {}
+	},
+	{
+		name = function() {return sprButtonMagic},
+		func = function() {}
+	},
+	{
+		name = function() {return sprButtonEnd},
+		func = function() {}
+	}
+]
 
 /*::EnemyBattle <- class extends Object{
 	//x = 0

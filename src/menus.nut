@@ -26,7 +26,7 @@
 	if(!menu) menu = optMenu; //If an optional menu to use was given as a parameter, set it as the current menu, if there isn't one already.
 
 	for(local index = 0; index < menu.len(); index++) {
-		drawText(font, 10, 20 * (index + 1), menu[index].name());
+		drawText(font, 10, 20 * (index + 1), menu[index].name()); //drawSprite(xc, yc, path+bright/dark)
 		if(menuSelectorPos == index) {
 			setDrawColor(0xFFFFFF);
 			drawRec(9, 20 * (index + 1) + 10, menu[index].name().len() * fontWidth, 0, false);
@@ -63,6 +63,7 @@
 
 	updateCursor() //Update the mouse cursor.
 }
+
 ::goToMenu <- function(newMenu) { //Go to another menu.
 	menuSelectorPos = 0;
 	menuBackTimeout = 2;
