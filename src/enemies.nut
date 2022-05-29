@@ -11,6 +11,7 @@
 	s = 0
 	max_number_of_projectiles = 0
 	released = 0
+	init = false
 
 	constructor(_x, _y, _arr = null) {
 		x = _x
@@ -21,6 +22,7 @@
 		max_number_of_projectiles = 20
 		print(max_number_of_projectiles)
 		released = 0
+		init = false
 		//restart = 500
 		if(!_arr) return
 		if(_arr.len() >= 1) restart = _arr[0]
@@ -36,6 +38,7 @@
 	function end_act(){
 		released = 0
 		n+=1
+		init = false
 	}
 
 	function c(){
@@ -86,7 +89,10 @@
 	}
 
 	function f(){
-		timer = 100
+		if(init == false){
+			timer = 100
+			init = true
+		}
 		timer--
 		if(timer > 0){
 			drawText(font, 200, 200, "Attack F")
