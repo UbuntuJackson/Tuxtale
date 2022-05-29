@@ -26,5 +26,27 @@
 	"languages": {
 		"en": "English",
 		"es": "Spanish"
+	},
+
+	"dialogs": {
+		"0-1": "What type of dialog do you want to see?",
+		"0-2": "Select your prefered option.",
+		"0-3": "One-answer dialog",
+		"0-4": "\"Back\" and \"Next\" options dialog",
+		"0-5": "Neither of those",
+		"1-1": "Okay, here you go. You have got only one option.",
+		"1-2": "Close",
+		"2-1": "So here you are - you can only go forward or backwards.",
+		"2-2": "Use the left and right arrow keys to navigate.",
+		"3-1": "Cool! Now you can navigate in dialogs, which don't have responses.",
+		"4-1": "You cannot go back here...",
+		"4-2": "But you can still go to the next option.",
+		"5-1": "Here you can choose to which of all dialogs you want to go to.",
+		"5-2": "0",
+		"5-3": "1",
+		"5-4": "2",
+		"5-5": "3",
+		"5-6": "4",
+		"5-7": "Close"
 	}
 }
